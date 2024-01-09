@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>我的世界mod开发规划</title>
+    <link href="/2024/01/09/MinecraftMod/"/>
+    <url>/2024/01/09/MinecraftMod/</url>
+    
+    <content type="html"><![CDATA[<h1 id="我的世界Mod开发规划"><a href="#我的世界Mod开发规划" class="headerlink" title="我的世界Mod开发规划"></a>我的世界Mod开发规划</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>经过这么多次尝试，终于搭建好了mod开发的环境。写一下未来的模组开发的计划。</p><h2 id="1-移动背包"><a href="#1-移动背包" class="headerlink" title="1.移动背包"></a>1.移动背包</h2><p>设计一个类似于饥荒中的切斯特Chester的移动背包，设计时可以参考MC中已经有的悦灵生物</p><p>血量设定也要类似于悦灵，不然失手无上太难受了</p><h2 id="2-传送仪"><a href="#2-传送仪" class="headerlink" title="2.传送仪"></a>2.传送仪</h2><p>设计一个类似于泰拉中的魔镜的物品，可以把自己传送会出生点。如果有条件的话，还可以设计一个类似的物品，将自己传送回到传送前的位置（相当于逆向工程）。</p><h2 id="3-音乐播放器"><a href="#3-音乐播放器" class="headerlink" title="3.音乐播放器"></a>3.音乐播放器</h2><p>可以是类似于插件的播放界面，也可以是直接作为唱片添加到游戏之中。</p><h2 id="4-坐标记录器"><a href="#4-坐标记录器" class="headerlink" title="4.坐标记录器"></a>4.坐标记录器</h2><p>手动记太麻烦</p><h2 id="5-其他"><a href="#5-其他" class="headerlink" title="5.其他"></a>5.其他</h2><p>如果有机会，还可以尝试制作泰拉的模组。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>game</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Minecraft</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>text1</title>
     <link href="/2024/01/06/test1/"/>
     <url>/2024/01/06/test1/</url>
