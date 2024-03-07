@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2024/03/07/saryu/</loc>
+    
+    <lastmod>2024-03-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://example.com/2024/01/09/MinecraftMod/</loc>
     
     <lastmod>2024-01-09</lastmod>
@@ -49,7 +58,7 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2024-01-09</lastmod>
+    <lastmod>2024-03-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -57,14 +66,28 @@
   
   <url>
     <loc>http://example.com/tags/Minecraft/</loc>
-    <lastmod>2024-01-09</lastmod>
+    <lastmod>2024-03-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/Nier/</loc>
+    <lastmod>2024-03-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/tags/hexo/</loc>
-    <lastmod>2024-01-09</lastmod>
+    <lastmod>2024-03-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/story/</loc>
+    <lastmod>2024-03-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -73,14 +96,28 @@
   
   <url>
     <loc>http://example.com/categories/game/</loc>
-    <lastmod>2024-01-09</lastmod>
+    <lastmod>2024-03-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/story/</loc>
+    <lastmod>2024-03-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://example.com/categories/blog/</loc>
-    <lastmod>2024-01-09</lastmod>
+    <lastmod>2024-03-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/categories/Nier/</loc>
+    <lastmod>2024-03-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
