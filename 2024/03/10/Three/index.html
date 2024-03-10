@@ -1,0 +1,702 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="icyyoung">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Darkengard 3中Three的个人故事">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Darkengard 3:Three">
+<meta property="og:url" content="http://example.com/2024/03/10/Three/index.html">
+<meta property="og:site_name" content="Blog of Icyyoung">
+<meta property="og:description" content="Darkengard 3中Three的个人故事">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/drakengard/zero.webp">
+<meta property="article:published_time" content="2024-03-10T05:26:48.745Z">
+<meta property="article:modified_time" content="2024-03-10T05:26:48.747Z">
+<meta property="article:author" content="icyyoung">
+<meta property="article:tag" content="novella">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/drakengard/zero.webp">
+  
+  
+  
+  <title>Darkengard 3:Three - Blog of Icyyoung</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Blog of Icyyoung" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Icyyoung</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/blog_default_img.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Darkengard 3:Three"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-10 13:26" pubdate>
+          2024年3月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          553 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          5 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Darkengard 3:Three</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Three"><a href="#Three" class="headerlink" title="Three"></a>Three</h1><h1 id="Character-Story"><a href="#Character-Story" class="headerlink" title="Character Story"></a>Character Story</h1><div class="wds-tab__content wds-is-current"><p class="mw-empty-elt"/><figure class="thumb tright show-info-icon" style="width: 278px"> 	<a target="_blank" rel="noopener" href="https://static.wikia.nocookie.net/drakengard/images/4/41/DD3_Three_Artwork2.png/revision/latest?cb=20131228231204" class="image"><img alt="DD3 Three Artwork2" src="https://static.wikia.nocookie.net/drakengard/images/4/41/DD3_Three_Artwork2.png/revision/latest/scale-to-width-down/278?cb=20131228231204" srcset="/img/loading.gif" lazyload decoding="async" loading="lazy" width="278" height="400" class="thumbimage" data-image-name="DD3 Three Artwork2.png" data-image-key="DD3_Three_Artwork2.png" data-relevant="1"/></a> 	 	<figcaption class="thumbcaption"> 		 			<a href="/wiki/File:DD3_Three_Artwork2.png" class="info-icon"><svg><use xlink:href="#wds-icons-info-small"/></svg></a> 		 		 		 	</figcaption> </figure>
+<p>From <b>Drakengard 3 Official Japanese Website</b><br/>Translation by <b><a target="_blank" rel="nofollow noreferrer noopener" class="external text" href="http://www.siliconera.com/2013/08/23/drakengard-3-sister-three-displays-her-obsession-with-dolls/">Siliconera</a></b>
+</p><p><b>Three - <font color="red"> My Dolls Are Nice Dolls</font></b>
+</p><p>Month X / Day X
+</p><p>Today, I made my first doll. Although I copied someone else’s way of making it, it’s my very own doll that I made. It turned out much better than I thought, so I was very pleased.
+</p><p>Month X / Day X
+</p><p>The Mr. Soldier doll I copied, is actually from a game called “chess”. The Mr. Soldier I took from the lord’s castle was the first doll I’ve ever owned. I’ve always liked dolls since I was little, but I’ve never had one of my own. After I got caught taking it outside the castle, One scolded me, but I couldn’t let go of the doll. Because, it was my first. Even if I get scolded, I like dolls.
+</p><p>Month X / Day X
+</p><p>Today, I made my eighth doll. I am now done with the black Mr. Soldier dolls. I think I’ll start making white Mr. Soldier dolls tomorrow.
+</p><p><br/>
+Month X / Day X
+</p><p>I finished making the white Mr. Soldier dolls. Now, I’m finished with all the Mr. Soldiers, so I’ll be making other dolls tomorrow. On the “Chess board” I saw, there were dolls on horses, but I don’t think I’ll make horses. It’s because I like dolls that are in the shape of humans, rather than animals. There were also dolls of houses, but that’s boring so I won’t make those either. Besides, dolls made into houses aren’t human-shaped, right? Houses can’t move or talk. So, instead of horses and houses, I wonder what kind of dolls I should make? There are kings and queens. Maybe I should make a doll with strange clothes, such as the “bishop”. But, what is a bishop? I think I’ll look into it next time.
+</p><p>Month X / Day X
+</p><p>I looked up “bishop” and found out what it is. They are important people called “priests”. They wear strange clothes and hats. In the book, it was written that “bishops” shave the top of their heads, and don’t have any hair. I didn’t know that, so I initially made the “bishop” doll have a normal head under its hat. I immediately trimmed the doll’s hair to make it shorter. It was difficult making it into a nice round shape, as shown in the book; however, it is now a proper “bishop” doll.
+</p><p>Month X / Day X
+</p><p>I was reading about a living being that has an upper-half of a human’s body, and the lower-half of a horse. I’d been wondering what I should do instead of a horse doll, so this is perfect, and I’ve decided to make it. I kept reading the book, hoping there might be something to replace the house doll, too.
+</p><p>Month X / Day X
+</p><p>In chess, the horse doll is known as the “knight”. So that’s it. I could’ve just made a human doll riding on a horse from the start. I recall seeing a chess doll riding on a horse at the lord’s castle. Since there were more that weren’t riding a horse, I thought that would be normal. Either way, since I already made it, it’s fine. I also checked to see if the “house” doll could be something else, and it wasn’t a house, but a castle (rook). Since it’s not a human or a living thing, I was disappointed. After giving it some thought, I decided to make the castle doll into a monster I saw in a book. It was a giant monster. If I tie both arms behind, and twist the legs, it looks like a building, right? Just to make it look more like a building, I’ll add stairs and ladders to it.
+</p><p>Month X / Day X
+</p><p>I finished making all 64 pieces of the chess dolls. After lining them up, I can see that I’ve gotten better. I’m happy. I wonder what kind of dolls I should make next.
+</p><p>Month X / Day X
+</p><p>Today, I made a doll from my own ideas, instead of copying one. Up until now, it was always troublesome gathering the material, but making it like this won’t involve such troubles. Besides, it’s much more wonderful and prettier than a chess doll. This time, it really is my very own doll. My cute, cute doll.
+</p><p>Month X / Day X
+</p><p>Today, I played with all the dolls I’ve made. In the picture book, there was a girl who played with dolls, so I decided to play with them too. The girl in the book played with her father doll, mother doll, grandmother doll, grandfather doll, and children dolls. But I don’t really like my father and mother, so playing that way wasn’t very fun. Besides, I don’t have a grandfather or grandmother. Octa is a grandfather, but not mine. I’ll think of a different way to play.
+</p><p>Month X / Day X
+</p><p>Today, I played “bad-guy hunting” with my dolls. I prepared a One doll, Two doll, Four doll and Five doll, and beat up the bad lord. They’re dolls and don’t have the power of songs, so I believe I was able to well replicate the part they all united their powers to fight. It was very fun, but the bad lord’s doll broke. I must now make a new doll. It’s fun to play, but I think I prefer making instead.
+</p><p>Month X / Day X
+</p><p>Today, I played “teatime” with my dolls. Playing “bad-guy hunting” broke my dolls, but drinking tea and speaking shouldn’t break them. Having conversations with the dolls is very fun. The dolls pay close attention to my stories. The dolls never complain. They don’t say things like, “What does that mean?” or “I don’t know what you’re saying”. For being so well-behaved, I made them sweets. I also made tea. It’s a very pretty purple-tea that looks like a jewel. I wanted to match the sweets, but I couldn’t get them to be the same color, so they were green sweets. After feeding the dolls sweets and giving them tea to drink, their faces turned to a dirty color. I washed them but they would not return to their normal colors. To top it off, they got a strange smell, so I decided to throw them away. I must now make new dolls. I won’t be playing “teatime” anymore.
+</p><p>Month X / Day X
+</p><p>I like dolls, but I also like scissors. From the cutting-sound it makes, to the feeling I get in my hands, I love everything about it. When I cut my hair, I have so much fun, I even forget to eat at times. When I tried cutting Octa’s hair, it wasn’t like mine, and it was very hard and rough. I tried cutting his moustache, but he ran away. Actually, I wanted to make him look like a “bishop”. While I like scissors, I don’t think Octa does. And they’re so fun, too. Also, it doesn’t seem as though Octa likes dolls that much, either.
+</p><p>Month X / Day X
+</p><p>Octa wears strange shoes. They have a funny shape. I wanted to make my dolls wear them, but Octa wouldn’t let me borrow them. Even though he wears such shoes, he’s actually very fast when he runs away. The time I tried to cut his moustache, he ran away with surprisingly fast speed. When I tried cutting other parts, he was even faster. Weirdo. I wonder why he doesn’t want it? It’s fun. I really don’t know. Now that I mention it, lately, Octa doesn’t play with me much. That’s because Octa doesn’t like dolls. I want to play with dolls. I think Octa, who doesn’t like dolls, should go play by himself.
+</p><p>Month X / Day X
+</p><p>Today, I spent a lot of time thinking about the meaning of “cuter”. Personally, I think all the dolls are cute. They’re all cute in their own ways. Maybe because of that, I didn’t know the meaning of “cute” versus “cuter”. Then, I decided I’d to put them in order, from simply “cute” to “cuter” and maybe I’d understand the difference.
+I gathered all the dolls I’ve made up until now, and arranged them in order of “cuteness”. I was then able to note the difference. Firstly, ones with wider foreheads are cuter than the ones with narrow foreheads. Then, the ones with bigger heads are cuter than smaller heads. Instead of small and thin eyes, the ones with large and wide eyes are cuter. Smaller mouths and noses are also cuter. The ones with plump cheeks are cuter. The dolls with fat and short arms and legs are cuter, too. The ones with their stomachs sticking out are cuter than ones with flat stomachs. So that means, I’ll make them with bigger heads, wider foreheads, big eyes, smaller mouths and noses, and plump cheeks.
+Yes, I have it! The way to make dolls cuter. I think I’ll try it out first thing tomorrow.
+</p><p><br/>
+Month X / Day X
+</p><p>Today, I worked on making the dolls “cuter”. After trying, though, it was much more difficult than I had expected. First of all, it was difficult to make their heads larger. This is because the dolls’ heads are hard. It’s not like I can inflate them like a balloon. Making foreheads wider, and noses smaller, didn’t go too well, either. This is because I can’t carve them like wood, or mold and make them rounder like clay.
+After trying this and that, things didn’t go too well, and I ruined one doll; however, I did finally stumble upon a good idea. Since it’s hard to change the size of their heads, what if I were to change the size of their bodies instead? I thought I could change the length of their arms and legs. After trying it, I was able to do it. I thought it might be difficult to make their bellies poke out, but after looking at the pillow on my bed, I was strucky by another good idea. The more the insides of pillows and cushions are filled, the fluffier they become. All I have to do is fill the dolls’ stomachs with more “fluff”. Sure enough, after filling then with plenty of “fluff,” they developed nice round stomachs. It was a great success.
+</p><p>Since I was able to make their stomachs nice and plump, I did the same to their arms and legs, too. They became cute and plump arms and legs. Their fingers would also look cuter if they were more plump, so filled them up with “fluff” as well, one by one, even though it was a little difficult. I even filled their palms. Then when I put on their previous heads, I was able to make them into dolls with large heads, with plump arms and legs. However, I’m still not very good at it, so their width and length didn’t match, and they looked a awkward. If I make many like I did with the chess dolls, I think I’ll become better. I thought I’d do my best tomorrow.
+</p><p>Month X / Day X
+</p><p>I became better at making plump dolls with big heads today. They no longer look awkward. While making them, I noticed that the “cuter dolls” have limbs and bellies that resemble those of a baby. Babies also have large heads. They also have wide foreheads, and wide eyes, with small mouths and noses. That’s it… making them “cuter” means making them look like babies. Yes, I understand now.
+</p><p>I’ll try making their cheeks a little more squishy. That’s how baby cheeks are, aren’t they? Perhaps I’ll fill them with something softer than “fluff,” too. What should it be? I think I’ll give it some more thought.
+</p><p>Month X / Day X
+</p><p>I spent the entire day looking for “cheek filling”. Something very soft with a nice feel to it. The insides of a featherbed? How about the insides of a cushion? what about a plush? Or sweets? I tried cutting many things that are plump or fluffy, to check their insides.
+</p><p>When I cut the featherbed, many tiny feathers scattered across the room. I accidentally inhaled some, and couldn’t stop sneezing. After cutting sweet and fluffy snacks, my scissors got sticky from the cream. After seeing me sneezing while licking off the sticky cream, Octa began to look, looking disturbed at the same time. After that, Octa washed my hair and changed my clothes that were covered in feathers, and I finally stopped sneezing. But I couldn’t find something that could be used as a filling for cheeks. What are baby cheeks made of…?
+</p><p>Month X / Day X
+</p><p>I tried many different ways, but in the end, I decided to loosen the strings inside the cheeks of the dolls. This seemed like the best way to do it. I carefully loosened the white, red, and pink strings, and made them into soft, fine threads that filled the insides of their cheeks. I had to make them fluffy, and not jam-packed. They also couldn’t be shriveled up, so I kept on feeling them with my fingers to test their softness.
+</p><p><br/>
+Month X / Day X
+</p><p>It took days and days, but I was finally able to make a “cuter doll” with baby-like cheeks. It has a plump stomach, with plump arms and legs. My cute, cute doll.
+</p><p>However, I want to make even cuter dolls. What kind of dolls are even cuter? What could their insides consist of? What kind of material should I use? What would make it even cuter? I think I’ll give it some more thought.
+</p>
+I think Octa wants to play, but I’m too busy. After making a cuter doll, I think I’ll just want to make an even cuter doll after that. I wonder what kind of doll I should make next. I want something that is much cuter, so I can have many more dolls to play with. Tee hee hee… hehehe.<p class="mw-empty-elt"/></div>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Darkengard/" class="category-chain-item">Darkengard</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/novella/" class="print-no-link">#novella</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Darkengard 3:Three</div>
+      <div>http://example.com/2024/03/10/Three/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>icyyoung</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/03/10/Two/" title="Darkengard 3:Two">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Darkengard 3:Two</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/03/10/Four/" title="Darkengard 3:Four">
+                        <span class="hidden-mobile">Darkengard 3:Four</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
