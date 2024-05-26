@@ -42,8 +42,10 @@ http://example.com/tags/novella/
 http://example.com/tags/Minecraft/
 http://example.com/tags/hexo/
 http://example.com/tags/%E6%95%A3%E6%96%87/
+http://example.com/tags/%E6%B1%87%E7%BC%96/
 http://example.com/categories/Nier/
 http://example.com/categories/Darkengard/
 http://example.com/categories/game/
 http://example.com/categories/blog/
 http://example.com/categories/%E6%96%87%E7%AB%A0/
+http://example.com/categories/code/
