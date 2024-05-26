@@ -1,6 +1,6 @@
 http://example.com/2024/05/26/half-is-not-enough/
-http://example.com/2024/04/01/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/
 http://example.com/2024/03/31/%E8%83%8C%E5%BD%B1/
+http://example.com/2024/04/01/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4/
 http://example.com/2024/03/10/One/
 http://example.com/2024/03/10/Cent/
 http://example.com/2024/03/10/Octa/
@@ -52,3 +52,5 @@ http://example.com/categories/blog/
 http://example.com/categories/%E6%96%87%E7%AB%A0/
 http://example.com/categories/code/
 http://example.com/categories/%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD/
+http://example.com/categories/cod/
+http://example.com/categories/art/
