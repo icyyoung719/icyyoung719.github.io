@@ -16,24 +16,24 @@
   <meta name="author" content="icyyoung">
   <meta name="keywords" content="">
   
-    <meta name="description" content="算法学习">
+    <meta name="description" content="The Republic by Plato,Book 7">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CPP大数运算">
-<meta property="og:url" content="http://example.com/2024/08/30/algorithm/2024_8_30/index.html">
+<meta property="og:title" content="The Republic">
+<meta property="og:url" content="http://example.com/2024/09/08/the-republic/index.html">
 <meta property="og:site_name" content="Blog of Icyyoung">
-<meta property="og:description" content="算法学习">
+<meta property="og:description" content="The Republic by Plato,Book 7">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/blog_default_img.jpg">
-<meta property="article:published_time" content="2024-08-30T13:23:28.001Z">
-<meta property="article:modified_time" content="2024-08-30T13:29:42.648Z">
+<meta property="article:published_time" content="2024-09-08T10:33:22.000Z">
+<meta property="article:modified_time" content="2024-09-08T11:32:43.014Z">
 <meta property="article:author" content="icyyoung">
-<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="散文">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/img/blog_default_img.jpg">
   
   
   
-  <title>CPP大数运算 - Blog of Icyyoung</title>
+  <title>The Republic - Blog of Icyyoung</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CPP大数运算"></span>
+            <span id="subtitle" data-typed-text="The Republic"></span>
           
         </div>
 
@@ -211,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-30 21:23" pubdate>
-          2024年8月30日 晚上
+        <time datetime="2024-09-08 18:33" pubdate>
+          2024年9月8日 晚上
         </time>
       </span>
     
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          408 字
+          319 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          4 分钟
+          3 分钟
         
       </span>
     
@@ -271,34 +271,57 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CPP大数运算</h1>
+            <h1 id="seo-header">The Republic</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="蜜蜂路线"><a href="#蜜蜂路线" class="headerlink" title="蜜蜂路线"></a>蜜蜂路线</h1><h2 id="题目背景"><a href="#题目背景" class="headerlink" title="题目背景"></a>题目背景</h2><p>无</p>
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>一只蜜蜂在下图所示的数字蜂房上爬动,已知它只能从标号小的蜂房爬到标号大的相邻蜂房,现在问你：蜜蜂从蜂房 $m$ 开始爬到蜂房 $n$，$m&lt;n$，有多少种爬行路线？（备注：题面有误，右上角应为 $n-1$）</p>
-<p><img src="https://cdn.luogu.com.cn/upload/pic/1575.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h2><p>输入 $m,n$ 的值</p>
-<h2 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h2><p>爬行有多少种路线</p>
-<h2 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 #1"></a>样例 #1</h2><h3 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入 #1"></a>样例输入 #1</h3><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">1 </span><span class="hljs-number">14</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出 #1"></a>样例输出 #1</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">377<br></code></pre></td></tr></table></figure>
-
-<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>对于100%的数据，$1 \le M,N\le 1000$</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">// Function to add two big numbers represented as vectors of digits.</span><br><span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">addBigNumbers</span><span class="hljs-params">(<span class="hljs-type">const</span> vector&lt;<span class="hljs-type">int</span>&gt;&amp; num1, <span class="hljs-type">const</span> vector&lt;<span class="hljs-type">int</span>&gt;&amp; num2)</span> </span>&#123;<br>    vector&lt;<span class="hljs-type">int</span>&gt; result;<br>    <span class="hljs-type">int</span> carry = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">auto</span> it1 = num1.<span class="hljs-built_in">rbegin</span>(), it2 = num2.<span class="hljs-built_in">rbegin</span>();<br><br>    <span class="hljs-keyword">while</span> (it1 != num1.<span class="hljs-built_in">rend</span>() || it2 != num2.<span class="hljs-built_in">rend</span>() || carry != <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-type">int</span> sum = carry;<br>        <span class="hljs-keyword">if</span> (it1 != num1.<span class="hljs-built_in">rend</span>()) sum += *it1++;<br>        <span class="hljs-keyword">if</span> (it2 != num2.<span class="hljs-built_in">rend</span>()) sum += *it2++;<br>        carry = sum / <span class="hljs-number">10</span>;<br>        result.<span class="hljs-built_in">push_back</span>(sum % <span class="hljs-number">10</span>);<br>    &#125;<br><br>    <span class="hljs-built_in">reverse</span>(result.<span class="hljs-built_in">begin</span>(), result.<span class="hljs-built_in">end</span>());<br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> n, m;<br>    cin &gt;&gt; m &gt;&gt; n;<br>    <span class="hljs-type">int</span> num = n - m + <span class="hljs-number">1</span>;<br><br>    vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">a</span>(<span class="hljs-number">1001</span>);<br>    <br>    <span class="hljs-comment">// Initialize the first three numbers in the sequence.</span><br>    a[<span class="hljs-number">0</span>] = &#123;<span class="hljs-number">1</span>&#125;;<br>    a[<span class="hljs-number">1</span>] = &#123;<span class="hljs-number">1</span>&#125;;<br>    a[<span class="hljs-number">2</span>] = &#123;<span class="hljs-number">1</span>&#125;;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">3</span>; i &lt; <span class="hljs-number">1001</span>; ++i) &#123;<br>        a[i] = <span class="hljs-built_in">addBigNumbers</span>(a[i<span class="hljs-number">-2</span>], a[i<span class="hljs-number">-1</span>]);<br>    &#125;<br><br>    <span class="hljs-comment">// Print the number at position &#x27;num&#x27;.</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> digit : a[num]) &#123;<br>        cout &lt;&lt; digit;<br>    &#125;<br>    cout &lt;&lt; endl;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<hr>
-<p><strong>思路与问题</strong>：</p>
-<ol>
-<li>这是斐波那契数列问题，需要关注n-m</li>
-<li>实际编程问题：斐波那契数列膨胀过快，需要用大数存储运算</li>
-</ol>
-<p><strong>cpp实现大数</strong>：</p>
-<ol>
-<li>用vector动态数组来存放长度无法确定的大数</li>
-<li>利用rend rbegin而非begin end迭代，即从低位向高位加，最后结果再reverse得到</li>
-<li>输出时，使用vector本身的迭代输出</li>
-</ol>
+                <p>‘If we’re thinking about the effect of education – or the lack of it – on our nature, there’s another comparison we can make. Picture human beings living in some sort of underground cave dwelling, with an entrance which is long, as wide as the cave, and open to the light. Here they live, from earliest childhood, with their legs and necks in chains, so that they have to stay where they are, looking only ahead of them, prevented by the chains from turning their heads. They have light from a distant fire, which is burning behind them and above them. Between the fire and the prisoners, at a higher level than them, is a path along which you must picture a low wall that has been built, like the screen which hides people when they are giving a puppet show, and above which they make the puppets appear.’</p>
+<p>‘Yes, I can picture all that,’ he said.</p>
+<p>‘Picture also, along the length of the wall, people carrying all sorts of implements which project above it, and statues of people, and animals made of stone and wood and all kinds of materials. As you’d expect, some of the people carrying the objects are speaking, while others are silent.’</p>
+<p>‘A strange picture. And strange prisoners.’</p>
+<p>‘No more strange than us,’ I said. ‘Do you think, for a start, that prisoners of that sort have ever seen anything more of themselves and of one another than the shadows cast by the fire on the wall of the cave in front of them?’</p>
+<p>‘How could they, if they had been prevented from moving their heads all their lives?’</p>
+<p>‘What about the objects which are being carried? Wouldn’t they see only shadows of these also?’</p>
+<p>‘Yes, of course.’</p>
+<p>‘So if they were able to talk to one another, don’t you think they’d believe that the things they were giving names to were the things they could see passing?’</p>
+<p>‘Yes, they’d be bound to.’</p>
+<p>‘What if the prison had an echo from the wall in front of them? Every time one of the people passing by spoke, do you suppose they’d believe the source of the sound to be anything other than the passing shadow?’</p>
+<p>‘No, that’s exactly what they would think.’</p>
+<p>‘All in all, then, what people in this situation would take for truth would be nothing more than the shadows of the manufactured objects.’</p>
+<p>‘Necessarily.’</p>
+<p>‘Suppose nature brought this state of affairs to an end,’ I said. ‘Think what their release from their chains and the cure for their ignorance would be like. When one of them was untied, and compelled suddenly to stand up, turn his head, start walking, and look towards the light, he’d find all these things painful. Because of the glare he’d be unable to see the things whose shadows he used to see before. What do you suppose he’d say if he was told that what he used to see before was of no importance, whereas now his eyesight was better, since he was closer to what is, and looking at things which more truly are? Suppose further that each of the passing objects was pointed out to him, and that he was asked what it was, and compelled to answer. Don’t you think he’d be confused? Wouldn’t he believe the things he saw before to be more true than what was being pointed out to him now?’</p>
+<p>‘Yes, he would. Much more true.’</p>
+<p>‘If he was forced to look at the light itself, wouldn’t it hurt his eyes? Wouldn’t he turn away, and run back to the things he could see? Wouldn’t he think those things really were clearer than what was being pointed out?’</p>
+<p>‘Yes,’ he said.</p>
+<p>‘And if he was dragged out of there by force, up the steep and difficult path, with no pause until he had been dragged right out into the sunlight, wouldn’t he find this dragging painful? Wouldn’t he resent it? And when he came into the light, with his eyes filled with the glare, would he be able to see a single one of the things he is now told are true?’</p>
+<p>‘No, he wouldn’t. Not at first.’</p>
+<p>‘He’d need to acclimatise himself, I imagine, if he were going to see things up there. To start with, he’d find shadows the easiest things to look at. After that, reflections – of people and other things – in water. The things themselves would come later, and from those he would move on to the heavenly bodies and the heavens themselves. He’d find it easier to look at the light of the stars and the moon by night than look at the sun, and the light of the sun, by day.’</p>
+<p>‘Of course.’</p>
+<p>‘The last thing he’d be able to look at, presumably, would be the sun. Not its image, in water or some location that is not its own, but the sun itself. He’d be able to look at it by itself, in its own place, and see it as it really was.’</p>
+<p>‘Yes,’ he said, ‘unquestionably.’</p>
+<p>‘At that point he would work out that it was the sun which caused the seasons and the years, which governed everything in the visible realm, and which was in one way or another responsible for everything they used to see.’</p>
+<p>‘That would obviously be the next stage.’</p>
+<p>‘Now, suppose he were reminded of the place where he lived originally, of what passed for wisdom there, and of his former fellow-prisoners. Don’t you think he would congratulate himself on the change? Wouldn’t he feel sorry for them?’</p>
+<p>‘Indeed he would.’</p>
+<p>‘Back in the cave they might have had rewards and praise and prizes for the person who was quickest at identifying the passing shapes, who had the best memory for the ones which came earlier or later or simultaneously, and who as a result was best at predicting what was going to come next. Do you think he would feel any desire for these prizes? Would he envy those who were respected and powerful there? Or would he feel as Achilles does in Homer? Would he much prefer “to labour as a common serf, serving a man with nothing to his name,” putting up with anything to avoid holding those opinions and living that life?’1</p>
+<p>‘Yes,’ he said. ‘If you ask me, he’d be prepared to put up with anything to avoid that way of life.’</p>
+<p>‘There’s another question I’d like to ask you,’ I said. ‘Suppose someone like that came back down into the cave and took up his old seat. Wouldn’t he find, coming straight in from the sunlight, that his eyes were swamped by the darkness?’</p>
+<p>‘I’m sure he would.’</p>
+<p>‘And suppose he had to go back to distinguishing the shadows, in competition with those who had never stopped being prisoners. Before his eyes had grown accustomed to the dark, while he still couldn’t see properly – and this period of acclimatisation would be anything but short – wouldn’t he be a laughing-stock? Wouldn’t it be said of him that he had come back from his journey to the upper world with his eyesight destroyed, and that it wasn’t worth even trying to go up there? As for anyone who tried to set them free, and take them up there, if they could somehow get their hands on him and kill him, wouldn’t they do just that?’</p>
+<p>‘They certainly would,’ he said.</p>
+<p>‘That is the picture, then, my dear Glaucon. And it fits what we were talking about earlier in its entirety. The region revealed to us by sight is the prison dwelling, and the light of the fire inside the dwelling is the power of the sun. If you identify the upward path and the view of things above with the ascent of the soul to the realm of understanding, then you will have caught my drift – my surmise – which is what you wanted to hear. Whether it is really true, perhaps only god knows. My own view, for what it’s worth, is that in the realm of what can be known the thing seen last, and seen with great difficulty, is the form or character of the good. But when it is seen, the conclusion must be that it turns out to be the cause of all that is right and good for everything. In the realm of sight it gives birth to light and light’s sovereign, the sun, while in the realm of thought it is itself sovereign, producing truth and reason unassisted. I further believe that anyone who is going to act wisely either in private life or in public life must have had a sight of this.’</p>
+<p>‘Well, I for one agree with you,’ he said. ‘As far as I can follow, at any rate.’</p>
+<p>‘Can you agree with me, then, on one further point? It’s no wonder if those who have been to the upper world refuse to take an interest in everyday affairs, if their souls are constantly eager to spend their time in that upper region. It’s what you’d expect, presumably, if things really are like the picture we have just drawn.’</p>
+<p>‘Yes, it is what you’d expect.’</p>
+<p>‘And here’s another question. Do you think it’s at all surprising if a person who turns to everyday life after the contemplation of the divine cuts a sorry figure, and makes a complete fool of himself – if before he can see properly, or can get acclimatised to the darkness around him, he is compelled to compete, in the lawcourts or anywhere else, over the shadows of justice or the statues which cast those shadows, or to argue about the way they are understood by those who have never seen justice itself?’</p>
+<p>‘No, it’s not in the least surprising,’ he said.</p>
+<p>‘Anyone with any sense,’ I said, ‘would remember that people’s eyesight can be impaired in two quite different ways, and for two quite different reasons. There’s the change from light to darkness, and the change from darkness to light. He might then take it that the same is true of the soul, so that when he saw a soul in difficulties, unable to see, he would not laugh mindlessly, but would ask whether it had come from some brighter life and could not cope with the unfamiliar darkness, or whether it had come from greater ignorance into what was brighter, and was now dazzled by the glare. One he would congratulate on what it had seen, and on its way of life. The other he would pity. Or if he chose to laugh at it, his laughter would be less absurd than laughter directed at the soul which had come from the light above.’</p>
+<p>‘Yes. What you say is entirely reasonable.’</p>
+<p>‘Well,’ I said, ‘if it’s true, there’s one conclusion we can’t avoid. Education is not what some people proclaim it to be. What they say, roughly speaking, is that they are able to put knowledge into souls where none was before. Like putting sight into eyes which were blind.’</p>
+<p>‘Yes, that is what they say.’</p>
+<p>‘Whereas our present account indicates that this capacity in every soul, this instrument by means of which each person learns, is like an eye which can only be turned away from the darkness and towards the light by turning the whole body. The entire soul has to turn with it, away from what is coming to be, until it is able to bear the sight of what is, and in particular the brightest part of it. This is the part we call the good, isn’t it?’</p>
+<p>‘Yes.’</p>
 
                 
               </div>
@@ -317,7 +340,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/blog/" class="category-chain-item">blog</a>
+  <a href="/categories/art/" class="category-chain-item">art</a>
   
   
 
@@ -332,7 +355,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/algorithm/" class="print-no-link">#algorithm</a>
+        <a href="/tags/%E6%95%A3%E6%96%87/" class="print-no-link">#散文</a>
       
     </div>
   
@@ -344,8 +367,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CPP大数运算</div>
-      <div>http://example.com/2024/08/30/algorithm/2024_8_30/</div>
+      <div>The Republic</div>
+      <div>http://example.com/2024/09/08/the-republic/</div>
     </div>
     <div class="license-meta">
       
@@ -357,7 +380,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月30日</div>
+          <div>2024年9月8日</div>
         </div>
       
       
@@ -389,18 +412,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/08/the-republic/" title="The Republic">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">The Republic</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/28/algorithm/2024_8_28/" title="01背包问题">
-                        <span class="hidden-mobile">01背包问题</span>
+                      <a href="/2024/08/30/algorithm/2024_8_30/" title="CPP大数运算">
+                        <span class="hidden-mobile">CPP大数运算</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

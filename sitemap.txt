@@ -1,3 +1,4 @@
+http://example.com/2024/09/08/the-republic/
 http://example.com/2024/08/30/algorithm/2024_8_30/
 http://example.com/2024/08/28/algorithm/2024_8_28/
 http://example.com/2024/08/21/master/
