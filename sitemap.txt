@@ -1,3 +1,15 @@
+http://example.com/2024/10/29/Cxx_HOPL4_zh_11/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_10/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_09/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_08/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_07/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_06/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_05/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_04/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_03/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_02/
+http://example.com/2024/10/29/Cxx_HOPL4_zh_01/
+http://example.com/2024/09/11/algorithm/algorithm_learning/
 http://example.com/2024/09/08/the-republic/
 http://example.com/2024/08/30/algorithm/2024_8_30/
 http://example.com/2024/08/28/algorithm/2024_8_28/
@@ -52,6 +64,7 @@ http://example.com/tags/%E6%B1%87%E7%BC%96/
 http://example.com/tags/poem/
 http://example.com/tags/%E8%80%83%E7%A0%94/
 http://example.com/tags/algorithm/
+http://example.com/tags/C/
 http://example.com/categories/Nier/
 http://example.com/categories/Darkengard/
 http://example.com/categories/game/
@@ -61,3 +74,4 @@ http://example.com/categories/code/
 http://example.com/categories/%EF%BF%BD%EF%BF%BD%EF%BF%BD%EF%BF%BD/
 http://example.com/categories/cod/
 http://example.com/categories/art/
+http://example.com/categories/History-of-C/

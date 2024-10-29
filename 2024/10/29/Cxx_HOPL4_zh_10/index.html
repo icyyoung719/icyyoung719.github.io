@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Bjarne Stroustrup">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="2020 年的 C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在纷繁多变的世界里茁壮成长：C++ 2006–2020">
+<meta property="og:url" content="http://example.com/2024/10/29/Cxx_HOPL4_zh_10/index.html">
+<meta property="og:site_name" content="Blog of Icyyoung">
+<meta property="og:description" content="2020 年的 C++">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/blog_default_img.jpg">
+<meta property="article:published_time" content="2024-10-29T13:21:09.465Z">
+<meta property="article:modified_time" content="2024-10-29T13:26:33.015Z">
+<meta property="article:author" content="icyyoung">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/blog_default_img.jpg">
+  
+  
+  
+  <title>在纷繁多变的世界里茁壮成长：C++ 2006–2020 - Blog of Icyyoung</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Blog of Icyyoung" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Icyyoung</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/1999/suitcase.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="在纷繁多变的世界里茁壮成长：C++ 2006–2020"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-29 21:21" pubdate>
+          2024年10月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          73 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">在纷繁多变的世界里茁壮成长：C++ 2006–2020</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="10-2020-年的-C"><a href="#10-2020-年的-C" class="headerlink" title="10. 2020 年的 C++"></a>10. 2020 年的 C++</h1><p>本节我们来查看一下在二十一世纪的第二个十年里，C++ 如何被使用，以及用来做什么：</p>
+<ul>
+<li><a href="#101-c-%E7%94%A8%E6%9D%A5%E5%81%9A%E4%BB%80%E4%B9%88">§10.1</a>：C++ 用来做什么？</li>
+<li><a href="#102-c-%E7%A4%BE%E5%8C%BA">§10.2</a>：C++ 社区</li>
+<li><a href="#103-%E6%95%99%E8%82%B2%E5%92%8C%E7%A0%94%E7%A9%B6">§10.3</a>：教育和科研</li>
+<li><a href="#104-%E5%B7%A5%E5%85%B7">§10.4</a>：工具</li>
+<li><a href="#105-%E7%BC%96%E7%A8%8B%E9%A3%8E%E6%A0%BC">§10.5</a>：编程风格</li>
+<li><a href="#106-%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97">§10.6</a>：核心指南</li>
+</ul>
+<p>C++ 的使用领域绝大部分与 2006 年相同（<a href="02.md#23-c-%E7%9A%84-2006">§2.3</a>）。虽然有一些新的领域，但在大多数情况下，我们看到的 C++ 还是在相同或类似的领域中被更加广泛和深入地使用。C++ 没有突然成为一种面向 Web 应用开发的语言，虽然即使在那种场景下仍有人用 C++ [Obiltschnig et al. 2005]。对于大多数程序员来说，C++ 依然是某种隐没在后台的东西，稳定、可靠、可移植、高性能。最终用户是看不见 C++ 的。</p>
+<p>编程风格则有更加巨大的变化。比起 C++98，C++11 是门好得多的语言。它更易于使用，表达能力更强，性能还更高。2020 年发布的 C++20 则在 C++11 的基础上做出了类似程度的改进。</p>
+<h2 id="10-1-C-用来做什么？"><a href="#10-1-C-用来做什么？" class="headerlink" title="10.1 C++ 用来做什么？"></a>10.1 C++ 用来做什么？</h2><p>大致而言，C++ 可谓无处不在、无所不用。但是，大象无形，大多数 C++ 的使用并不可见，被深深隐藏在重要系统的基础设施内部。</p>
+<p>C++ 被用在哪里，是如何被使用的，没人能够完整了解。2015 年，捷克公司 JetBrains 委托进行了一项研究 [Kazakova 2015]，结果显示在北美、欧洲、中东以及亚太地区 C++ 被大量使用，在南美也有一些使用。“在南美的一些使用”就有 40 万开发者，而 C++ 开发者的总人数则达到了 440 万。使用 C++ 的行业有（按顺序）金融、银行、游戏、前台、电信、电子、投资银行、营销、制造和零售。所有迹象表明，自 2015 年以来，C++ 的用户数量和使用领域一直在稳步增长。</p>
+<p>在这里，我将对 2006 到 2020 年期间内 C++ 的应用领域给出一个可能有些个人化的、印象派的、非常不完整的概览：</p>
+<ul>
+<li><strong>工业界</strong>：电信（例如 AT&amp;T、爱立信、华为和西门子）、移动设备（基本上是所有，信号处理、屏幕渲染、对性能或可移植性有重大要求的应用）、微电子（例如 AMD、英特尔、Mentor Graphics 和英伟达）、金融（例如摩根士丹利和文艺复兴）、游戏（几乎所有）、图形和动画（例如 Maya、迪士尼和 SideFx）、区块链实现（例如 Ripple）、数据库（例如 SAP、Mongo、MySQL 和 Oracle）、云（例如谷歌、微软、IBM 和 Amazon）、人工智能和机器学习（例如 TensorFlow 库）、运营支持（例如 Maersk 和 AT&amp;T）。</li>
+<li><strong>科学</strong>：航空航天（例如 Space X、火星漫游者、猎户座载人飞行器、詹姆斯·韦伯太空望远镜）、高能物理（例如 CERN 欧洲核子研究中心、SLAC 国家加速器实验室、费米实验室）、生物学（遗传学、基因组测序）、超大规模计算。</li>
+<li><strong>教学</strong>：全球大多数工程院校。</li>
+<li><strong>软件开发</strong>：TensorFlow、工具、库、编译器、Emscripten（从 C++ 生成 asm.js 和 WebAssembly）、运行期代码生成、LLVM（许多新语言的后台支柱，也大量用于工具构建中）、XML 和 JSON 解析器、异构计算（例如 SYCL [Khronos Group 2014–2020] 和 HPX [Stellar Group 2014–2020]）。</li>
+<li><strong>Web 基础设施</strong>：浏览器（Chrome、Edge、FireFox 和 Safari）、JavaScript 引擎（V8 和 SpiderMonkey）、Java 虚拟机（HotSpot 和 J9）、谷歌和类似组织（搜索、map-reduce 和文件系统）。</li>
+<li><strong>主要 Web 应用</strong>：阿里巴巴、Amadeus（机票）、Amazon、苹果、Facebook、PayPal、腾讯（微信）、Yandex。</li>
+<li><strong>工程应用</strong>：达索（CAD&#x2F;CAM）、洛克希德·马丁（飞机）。</li>
+<li><strong>汽车</strong>：辅助驾驶 [ADAS Wikipedia 2020; Mobileye 2020; NVIDIA 2020]、软件架构 [Autosar 2020; Autosar Wikipedia 2020]、机器视觉 [OpenCV 2020; OpenCV Wikipedia 2020]、宝马、通用、梅赛德斯、特斯拉、丰田、沃尔沃、大众、Waymo（谷歌自动驾驶汽车）。</li>
+<li><strong>嵌入式系统</strong>：智能手表和健康监控器（例如佳明）、相机和视频设备（例如奥林巴斯和佳能）、导航辅助设备（例如 TomTom）、咖啡机（例如 Nespresso）、农场动物监控器（例如 Big Dutchman）、生产线温度控制（例如嘉士伯）。</li>
+<li><strong>安全</strong>：卡巴斯基、美国国家安全局、赛门铁克。</li>
+<li><strong>医疗和生物学</strong>：医学监测和成像（例如西门子、通用电气、东芝和飞利浦）、断层扫描（例如 CT）、基因组分析、生物信息学、放射肿瘤学（例如 Elekta 和 Varian）。</li>
+</ul>
+<p>虽然这只是冰山一角，但它展示了 C++ 使用的广度和深度。大多数 C++ 的使用对其（间接）用户不可见。某些对 C++ 的使用早于 2006 年，但也有很多是之后才开始的。没有一个主要现代系统只用单一语言写就，但是 C++ 在所有这里提到的应用场合中发挥了重要作用。</p>
+<p>我们常常忘记那些平凡的却在我们的生活中起着重要作用的应用。没错，C++ 可以帮助运行美国国家航空航天局的深空网络，但也可以在人们日常熟悉的小设备中运行，例如咖啡机、立体声扬声器和洗碗机。让我惊讶的是，C++ 竟然也被应用于运转现代养猪场的先进系统中。</p>
+<h2 id="10-2-C-社区"><a href="#10-2-C-社区" class="headerlink" title="10.2 C++ 社区"></a>10.2 C++ 社区</h2><p>与 2006 年相比，2020 年的 C++ 社区更加壮大，不断蓬勃发展、积极向上、富有成效，并且急切地想看到未来的进一步改进。</p>
+<p>与大多数编程语言社区相比，C++ 社区一向是出奇地无组织和分散。这个问题早已有之，因为我就没有建立组织的才能。当时我的雇主 AT&amp;T 贝尔实验室并不想建立一个 C++ 社区，但是似乎其他所有人都非常感兴趣，并且愿意花钱来建立他们的用户群。最终的结果是，许多公司，例如苹果、Borland、GNU、IBM、微软和 Zortech 都建立了以其客户为中心的 C++ 社区，但是却没有总体的 C++ 社区，社区没有中心。有杂志，读的人不多（相对于 C++ 社区的规模）。虽然有会议，但它们倾向于被一般的“面向对象”的会议或“软件开发”的会议所吸收或者就演变成了那些一般性会议。没有总体的 C++ 用户组。</p>
+<p>如今，世界上有数十个本地、国家和国际 C++ 用户组，这些用户组之间也经常进行一些合作。除此之外，还有数十个 C++ 会议，每个会议都有数百人参加：</p>
+<ul>
+<li><strong>C++ 基金会</strong>——成立于 2014 年，是一家非盈利性组织，旨在推广 ISO C++（而不是任何特定供应商的 C++），它主办 CppCon 年度会议。</li>
+<li><strong>Boost</strong>——成立于 1999 年，它是一组经过同行评审的库、以及建造使用它们的社区。Boost 举行年度会议。</li>
+<li>**Meeting C++**——成立于 2012 年，是一个非常活跃的用户团体网络，定期举行会议（最初在德国活跃）。在不同地方有数十个 Meeting C++ 的会议和聚会。</li>
+<li><strong>ACCU</strong>——成立于 1984 年，最初作为 C 用户组而建立，是所有现存 C++ 组织中的爷爷辈了；它出版两本杂志，并举行年度会议（主要在英国活跃）。</li>
+<li><strong>isocpp.org</strong>——C++ 基金会的网站，其中包含与 C++ 有关的新闻，标准化进程相关的信息，以及有用的链接。</li>
+<li><strong>cppreference.com</strong>——出色的在线参考资料；它甚至有一个历史部分！</li>
+<li><strong>会议</strong>——CppCon、ACCU、Meeting++、C++ Now（以前称为 BoostCon）、Qt、NDC、std::cpp 的会议，以及在波兰、俄罗斯、中国、以色列和其他地方的一些会议。此外，很多通用软件会议上也在越来越多的安排 C++ 专题。</li>
+<li><strong>博客</strong>——有许多，播客也是。</li>
+<li><strong>视频</strong>——视频已成为有关 C++ 的最新进展的主要信息来源。主要的 C++ 会议通常会录制演讲视频并将其发布以供免费访问（例如 CppCon、C++Now 和 Meeting++）。视频采访已变得很流行。最多最受欢迎的托管网站是 YouTube，但不幸的是，YouTube 在有些拥有大型 C++ 开发者群体的国家（例如中国）被封了。</li>
+<li><strong>GitHub</strong>——使共享代码和组织联合项目开发变得更加容易。</li>
+</ul>
+<p>跟某些语言和供应商的集中组织相比，这还差得很远。但是，这些 C++ 社区和组织富有活力，彼此保持联系，并且比在 2006 年的时候活跃得多。此外，一些企业的用户组和会议也仍然活跃。</p>
+<h2 id="10-3-教育和研究"><a href="#10-3-教育和研究" class="headerlink" title="10.3 教育和研究"></a>10.3 教育和研究</h2><p>从 2006 年不太理想的状态（<a href="02.md#23-c-%E7%9A%84-2006">§2.3</a>）到现在，C++ 的教育是否得到了改善？也许吧，但是对于 C++ 来说，教育仍然不是强项，大多数教育还都集中在为业内人士提供信息和培训上。在大多数国家&#x2F;地区，很多大学毕业生对 C++ 语言及使用它的关键技术只能算一知半解。对于 C++ 社区来说，这是一个严重的问题。因为，对于一门语言来说，如果没有热情洋溢的程序员们源源不断、前赴后继地精通其关键设计和实现技术，那它是无法在工业规模上取得成功的。假如更多使用 C++ 的开发者知道如何更好地使用它，那他们就能做太多太多的事来改进软件！如果毕业生带着更准确的 C++ 视角进入工作岗位，那么太多太多的事情会变得容易得多！</p>
+<p>C++ 教学所面临的一个问题是教育机构经常将编程视为低级技能，而不是基础课目。好的软件对我们的文明至关重要。为了把控软件，我们需要像对待数学和物理学一样，严肃认真地对待关键系统的软件开发。那种削足适履的方式对于教育和软件开发是行不通的。一个学期的教学也远远不够。我们永远都不会期望在教了短短几个月英语之后，学生就会懂得欣赏莎士比亚。同样，了解语言的基本机制与精通内行所使用的惯用法和技巧之间是有差距的。就像任何主要的现代编程语言一样，教授 C++ 也需要根据学生的背景和需求相应地调整教学方法。即使教育机构意识到了这些问题并愿意做出一些弥补，奈何学生已经课满为患，教师也很难保持不跟工业实践脱节。SG20（教育）正试图总结教授和使用现代 C++ 的方法来提供一些帮助。SG15（工具）则可能提供更多支持教学的工具，从而越来越多地发挥重要作用。</p>
+<p>从 C++11 开始，我们对此有了越来越多的认识。例如，Kate Gregory 制作了一些很棒的视频，介绍了如何教授 C++ [Gregory 2015, 2017, 2018]。最近的一些书籍认识到在支持教育方面，不同的受众存在不同的需求，并试图迎头解决这些问题：</p>
+<ul>
+<li>《C++ 程序设计原理与实践》（*Programming: Principles and Practice Using C++*）[Stroustrup 2008a]——这是一本针对刚入门的大学生和自学人士的教科书。</li>
+<li>《C++ 语言导学》（*A Tour of C++*）[Stroustrup 2014d，2018f]——针对经验丰富的程序员的简短概述（200 页）。</li>
+<li>《发现现代 C++》（*Discovering Modern C++*）[Gottschling 2015]——这是一本专门为数学背景较强的学生准备的书。</li>
+</ul>
+<p>我也写了一些半学术性质的论文（<em>Software Development for Infrastructure</em> [Stroustrup 2012] 和 <em>What should we teach software developers? Why?</em> [Stroustrup 2010b]），并在 CppCon 2017 开幕式上作了关于 C++ 教育的主题演讲（<em>Learning and Teaching Modern C++</em> [Stroustrup 2017c]）。</p>
+<p>自 2014 年左右以来，视频和在线课程的使用急剧增加。这对 C++ 的教学来说很有帮助，因为这样就不需要一个中心组织或大量资金的支持。</p>
+<p>以下列出了从 2006 到 2020 年间，与 C++ 语言相关的学术研究成果：</p>
+<ul>
+<li><strong>概念</strong>：泛型编程 [Dehnert and Stepanov 2000]、C++0x 概念 [Gregor et al. 2006]、使用模式 [Dos Reis and Stroustrup 2006]、库设计 [Sutton and Stroustrup 2011]。</li>
+<li><strong>理论与形式化体系</strong>：继承模型 [Wasserrab et al. 2006]、模板和重载 [Dos Reis and Stroustrup 2005a]、模板语义 [Siek and Taha 2006]、对象布局 [Ramananandro et al. 2011]、构造和析构 [Ramananandro et al. 2012]、用于代码处理的表示形式 [Dos Reis and Stroustrup 2009，2011]、资源模型 [Stroustrup et al. 2015]。</li>
+<li><strong>动态查找</strong>：快速动态类型转换 [Gibbs and Stroustrup 2006]、模式匹配 [Solodkyyet et al. 2012]、多重方法 [Pirkelbauer et al. 2010]。</li>
+<li><strong>静态分析</strong>：可靠的表示法 [Yang et al. 2012]、实践经验 [Bessey 2010]。</li>
+<li><strong>性能</strong>：代码膨胀 [Bourdev and Järvi 2006，2011]、异常实现 [Renwicket et al. 2019]。</li>
+<li><strong>语言比较</strong>：泛型编程 [Garcia et al. 2007]。</li>
+<li><strong>并发和并行编程</strong>：内存模型 [Batty et al. 2013，2012，2011]、HPX（一个适用于任何规模的并行和分布式应用程序的通用 C++ 运行时系统 [Kaiser et al. 2009Sept]）、STAPL（自适应泛型并行 C++ 库 [Zandifar et al. 2014]）、TBB（英特尔的任务并行库 [Reinders 2007]）。</li>
+<li><strong>协程</strong>：数据库优化 [Jonathan et al. 2018; Psaropoulos et al. 2017]。</li>
+<li><strong>软件工程</strong>：代码的组织和优化 [Garcia and Stroustrup 2015]、常量表达式求值 [Dos Reis and Stroustrup 2010]</li>
+</ul>
+<p>看起来还有更多的关于 C++ 的学术研究机会，关于语言的特性和技巧（例如，异常处理、编译期编程和资源管理），以及其使用的有效性（例如，静态分析或基于真实世界代码和经验的研究）。</p>
+<p>C++ 社区中最活跃的成员中很少有人会考虑撰写学术论文，写书似乎更受欢迎（例如，[Čukić 2018; Gottschling 2015; Meyers 2014; Stepanov and McJones 2009; Vandevoorde et al. 2018; Williams 2018]）。</p>
+<h2 id="10-4-工具"><a href="#10-4-工具" class="headerlink" title="10.4 工具"></a>10.4 工具</h2><p>与其他语言相比，在 1990 年代初期到中期，C++ 在用于工业用途的工具和编程环境方面做得相当不错。例如，图形用户界面和集成软件开发环境都率先应用于 C++。后来，开发和投资的重点转移到专属语言，例如 Java（Sun）、C#（微软）和 Objective-C（苹果）以及更简单的语言，例如 C（GNU）。</p>
+<p>在我看来，有两个主要原因：</p>
+<ul>
+<li>资金：组织倾向于使用他们可以控制的语言和工具，从而提供比竞争对手更大的差异化优势。从这个角度来看，C++ 由正式的标准委员会控制、强调所有人的利益，这反倒成了一个缺点——某种公地悲剧的变体。</li>
+<li>宏和文本定义：C++ 没有一个简单，可广泛使用的内部表示形式来简化基于源代码的工具构建，并且大量使用宏必然导致程序员看到的跟编译器所分析的有所不同。和 C 一样，C++ 是根据字符序列来定义的，而非根据直接表示抽象且更易于操作的构件来定义。我与 Gabriel Dos Reis 一起定义了这样一个表示形式 [Dos Reis and Stroustrup 2009, 2011]，但事实证明 C++ 社区中面向字符的传统难以克服。当初建造时没有意识到的规范化结构，想通过翻新加上去就难了。</li>
+</ul>
+<p>因此，在 2006–2020 年期间，与其他语言相比，C++ 被支持工具方面的问题严重困扰。但是，随着以下这些工具的涌现，这种情况得到了稍许改善：</p>
+<ul>
+<li>工业级的集成软件开发环境：例如微软的 Visual Studio [Microsoft 2020; VStudio Wikipedia 2020] 和 JetBrains 的 CLion [CLion Wikipedia 2020; JetBrains 2020]。这些环境不仅支持编辑和调试，还支持各种形式的分析和简单的代码转换。</li>
+<li>在线编译器：例如 Compiler Explorer [Godbolt 2016] 和 Wandbox [Wandbox 2016–2020]。这些系统允许从任何浏览器中编译 C++ 程序，有时甚至可以执行。它们可用于实验，检查代码质量，还有比较不同的编译器及编译器和库的不同版本。</li>
+<li>GUI 库和工具：例如 Qt [Qt 1991–2020]、GTKmm [GTKmm 2005–2020] 和 wxWidgets [wxWidgets 1992–2020]。不幸的是，Qt 依赖于元对象协议（meta-object protocol，缩写为 MOP），因此 Qt 程序还不是标准的 ISO C++ 应用。静态反射（<a href="09.md#962-%E9%9D%99%E6%80%81%E5%8F%8D%E5%B0%84">§9.6.2</a>）使我们最终能够解决这个问题。C++ 社区的问题不是没有好的 GUI 库，而是太多了，因此会有选择困难。</li>
+<li>分析器：例如 Coverity [Coverity 2002–2020]，Visual Studio 的 C++ Core Guidelines 分析器（<a href="#106-%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97">§10.6</a>）和 Clang Tidy [Clang Tidy 2007–2020]。</li>
+<li>编译器工具支持：例如 LLVM 编译器后端基础设施，可简化代码生成和代码分析 [LLVM 2003–2020]。除了 C++ 本身，这为许多新语言提供了福利。</li>
+<li>构建系统：例如 build2 [Build2 2014–2020] 和 CMake [CMake 2000–2020]，以及 GNUmake[GNUmake 2006–2020]。同样，在没有标准的情况下，选择会有困难。</li>
+<li>包管理器：例如 Conan [Conan 2016–2020] 和 vcpkg [vcpkg 2016–2020]。</li>
+<li>运行时环境：例如 WebAssembly：将 ISO C++ 编译为字节码以在浏览器中部署的系统 [WebAssembly 2017–2020]。</li>
+<li>运行时编译、JIT 和链接：例如 Cling [Cling 2014–2020; Naumann 2012; Naumann et al. 2010] 和 RC++ [RC++ 2010–2020]。</li>
+</ul>
+<p>上面列出的只是一些示例。像往常一样，C++ 用户面临的问题是可选方案的数量众多，例如：[RC++ 2010–2020] 列出了 26 个用于在编译时生成代码的系统，并且有数十个程序包管理器。因此，我们需要的是某种形式的标准化。</p>
+<p>截至 2020 年，工具仍不是 C++ 的强项，但我们正在大范围内取得进展。</p>
+<h2 id="10-5-编程风格"><a href="#10-5-编程风格" class="headerlink" title="10.5 编程风格"></a>10.5 编程风格</h2><p>针对大多数现实问题的最佳解决方案需要组合使用多种技术，这也是 C++ 演进的主要动力。自然地，这让那些声称拥有单个简单最佳解决方案（“编程范式”）的人感到不爽，但是支持多种风格一直是 C++ 的根本优势。考虑一下“绘制所有形状”的例子，这个例子自 Simula 发展早期（绘图设备为湿墨绘图仪）以来就一直用于说明面向对象编程。用 C++20，我们可以这样写：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">draw_all</span><span class="hljs-params">(range <span class="hljs-keyword">auto</span>&amp; seq)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">for</span> (Shape&amp; s : seq)<br>        s.<span class="hljs-built_in">draw</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>该段代码是什么编程范式？</p>
+<ul>
+<li>显然，它是面向对象编程：使用了虚函数和类层次结构。</li>
+<li>显然是泛型编程：使用了模板（通过使用 <code>range</code> 概念进行参数化，我们得到一个模板）。</li>
+<li>显然，这是普通的命令式编程：使用了 <code>for</code> 循环，并按照常规 <code>f(x)</code> 语法定义了一个将要被调用的函数。</li>
+</ul>
+<p>对这个例子我可以进一步展开：<code>Shape</code> 通常具有可变状态；我可以使用 lambda 表达式，也可以调用 C 函数；我可以用 <code>Drawable</code> 的概念对参数进行更多约束。对于各种“更好”的定义，适当的技术组合比我能想到的任何一种单一范式所能提供的解决方案更好。</p>
+<p>C++ 支持多种编程风格（如您坚持，也可以称为“范式”），其背后的想法并不是要让我们选择一种最喜欢的样式进行编程，而是可以将多种风格组合使用，以表达比单一风格更好的解决方案。</p>
+<h3 id="10-5-1-泛型编程"><a href="#10-5-1-泛型编程" class="headerlink" title="10.5.1 泛型编程"></a>10.5.1 泛型编程</h3><p>在 2006 年，许多 C++ 代码仍然是面向对象的风格和 C 风格编程的混合体。自然而然的，到 2020 年仍然有很多类似这样的代码。但是，随着 C++98 的到来，STL 风格的泛型编程（通常称为 GP）变得广为人知，并且用户代码也逐渐开始使用 GP，而不只是简单地使用标准库。C++11 中对 GP 的更好支持为在生产代码中更广泛的使用 GP 提供了极大的便利。但是，C++17 中缺少概念（<a href="06.md#6-%E6%A6%82%E5%BF%B5">§6</a>），这仍然阻碍了 C++ 中泛型编程的使用。</p>
+<p>基本上，所有专家都阅读过 Alex Stepanov 的《编程原本》（<em>Elements of Programming</em>，通常称为 <em>EoP</em>）[Stepanov and McJones 2009]，并受到其影响。</p>
+<p>基于模板的泛型编程是 C++ 标准库的支柱：容器、范围（<a href="09.md#935-%E8%8C%83%E5%9B%B4">§9.3.5</a>）、算法、iostream、文件系统（<a href="08.md#86-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F">§8.6</a>）、随机数（<a href="04.md#46-c11%E6%A0%87%E5%87%86%E5%BA%93%E7%BB%84%E4%BB%B6">§4.6</a>）、线程（<a href="04.md#412-%E7%BA%BF%E7%A8%8B%E5%92%8C%E9%94%81">§4.1.2</a>）（<a href="09.md#94-%E5%B9%B6%E5%8F%91">§9.4</a>）、锁（<a href="04.md#412-%E7%BA%BF%E7%A8%8B%E5%92%8C%E9%94%81">§4.1.2</a>）（<a href="08.md#84-%E5%B9%B6%E5%8F%91">§8.4</a>）、时间（<a href="04.md#46-c11%E6%A0%87%E5%87%86%E5%BA%93%E7%BB%84%E4%BB%B6">§4.6</a>）（<a href="09.md#936-%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E5%8C%BA">§9.3.6</a>）、字符串、正则表达式（<a href="04.md#46-c11%E6%A0%87%E5%87%86%E5%BA%93%E7%BB%84%E4%BB%B6">§4.6</a>）和格式化（<a href="09.md#937-%E6%A0%BC%E5%BC%8F%E5%8C%96">§9.3.7</a>）。</p>
+<h3 id="10-5-2-元编程"><a href="#10-5-2-元编程" class="headerlink" title="10.5.2 元编程"></a>10.5.2 元编程</h3><p>C++ 中的元编程出自泛型编程，因为两者都依赖于模板。它的起源可以追溯到 C++ 模板的早期，当时人们发现模板是图灵完备的 [Vandevoorde and Josuttis 2002; Veldhuizen 2003]，并以某种有用的形式提供编译期纯函数式编程。</p>
+<p>模板元编程（通常称为 TMP）往往非常丑。有时，这种丑陋通过使用宏来掩盖，从而造成了其他问题。TMP 几乎无处不在，这也证明了它确实有用。例如，如果没有元编程，就无法实现 C++14 标准库。许多技巧和实验在 2006 年前就有了，但是 C++11 具有更好的编译器、变参模板（<a href="04.md#432-%E5%8F%98%E5%8F%82%E6%A8%A1%E6%9D%BF">§4.3.2</a>）和 lambda 表达式（<a href="04.md#431-lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F">§4.3.1</a>），这些推动了 TMP 成为主流用法。C++ 标准库还增加了更多元编程的支持，比如：编译期选择模板 <code>conditional</code>，允许代码依赖于类型属性的类型特征（type trait）如“能否安全地按位复制类型 X？”（<a href="04.md#451-%E5%AE%9E%E7%8E%B0%E6%8A%80%E5%B7%A7">§4.5.1</a>），还有 <code>enable_if</code>（<a href="04.md#451-%E5%AE%9E%E7%8E%B0%E6%8A%80%E5%B7%A7">§4.5.1</a>）。举例来说：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">conditional&lt;(<span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>)&lt;<span class="hljs-number">4</span>),<span class="hljs-type">double</span>,<span class="hljs-type">int</span>&gt;::type x; <span class="hljs-comment">// 如果 int 小，就用 double</span><br></code></pre></td></tr></table></figure>
+
+<p>计算类型以精确地反映需求，这可以说是 TMP 的本质。我们还可以计算值：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">template</span> &lt;<span class="hljs-type">unsigned</span> n&gt;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">fac</span> &#123;<br>    <span class="hljs-keyword">enum</span> &#123; val = n * fac&lt;n<span class="hljs-number">-1</span>&gt;::val &#125;;<br>&#125;;<br><br><span class="hljs-keyword">template</span> &lt;&gt;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">fac</span>&lt;<span class="hljs-number">0</span>&gt; &#123;   <span class="hljs-comment">// 0 的特化：fac&lt;0&gt; 为 1</span><br>    <span class="hljs-keyword">enum</span> &#123; val = <span class="hljs-number">1</span> &#125;;<br>&#125;;<br><br><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> fac7 = fac&lt;<span class="hljs-number">7</span>&gt;::val;  <span class="hljs-comment">// 5040</span><br></code></pre></td></tr></table></figure>
+
+<p>注意，模板特化在其中起着关键作用，这一点在大多数 TMP 中是必不可少的。它已用于计算复杂得多的数值，也可以表示控制流（例如，在编译期计算决策表，进行循环展开，等等）。在 C++98 [Stroustrup 2007] 中，模板特化是一个很大程度上没有得到足够重视的特性。</p>
+<p>在设计精巧的库中以及在现实世界的代码中，诸如 <code>enable_if</code> 之类的原语已成为数百甚至数千行的程序的基础。TMP 的早期示例包含一个完整的编译期 Lisp 解释器 [Czarnecki and Eisenecker 2000]。此类代码极难调试，而维护它们更是可怕的差事。我见识过这样的情形，几百行基于 TMP 的代码（不得不承认非常聪明），在一台 30G 内存的计算机上编译需要好几分钟的时间，由于内存不足而导致最终编译失败。即使是简单的错误，编译器的错误信息也可以达到几千行。然而，TMP 仍被广泛使用。理智的程序员发现，尽管 TMP 有着各种问题，仍比起其他方案要好。我见过 TMP 生成的代码比我认为一个合格的人类程序员会手写的汇编代码要更好。</p>
+<p>因此，问题变成了如何更好地满足这种需求。当人们开始把像 <code>fac&lt;&gt;</code> 这样的代码视为正常时，我为此而感到担心。这不是表达普通数值算法的好方法。概念（<a href="06.md#6-%E6%A6%82%E5%BF%B5">§6</a>）和编译期求值函数（<code>constexpr</code>（<a href="04.md#427-constexpr-%E5%87%BD%E6%95%B0">§4.2.7</a>））可以大大简化元编程。举例来说：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> <span class="hljs-title">fac</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> r = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (n&gt;<span class="hljs-number">1</span>) r*=n--;<br>    <span class="hljs-keyword">return</span> r;<br>&#125;;<br><br><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> fac7 = <span class="hljs-built_in">fac</span>(<span class="hljs-number">7</span>);  <span class="hljs-comment">// 5040</span><br></code></pre></td></tr></table></figure>
+
+<p>这个例子说明，当我们需要一个值时，函数是最佳的计算方式，即使——尤其——在编译期。传统<strong>模板</strong>元编程最好只保留用于计算新的类型和控制结构。</p>
+<p>Jaakko Järvi 的 Boost.Lambda [Järvi and Powell 2002; Järvi et al. 2003a] 是 TMP 的早期使用案例，它帮助说服了人们 lambda 表达式是有用的，并且他们需要直接的语言支持。</p>
+<p>Boost 元编程库 Boost.MPL [Gurtovoy and Abrahams 2002–2020] 展示了传统 TMP 的最好和最坏的方面。更现代的库 Boost.Hana [Boost Hana 2015–2020] 使用 <code>constexpr</code> 函数。WG21 的 SG7（<a href="03.md#32-%E7%BB%84%E7%BB%87">§3.2</a>）试图开发一种更好的标准元编程系统，其中还包括编译期反射（<a href="09.md#962-%E9%9D%99%E6%80%81%E5%8F%8D%E5%B0%84">§9.6.2</a>）。</p>
+<h2 id="10-6-编码指南"><a href="#10-6-编码指南" class="headerlink" title="10.6 编码指南"></a>10.6 编码指南</h2><p>我对 C++ 语言的最终目标是：</p>
+<ul>
+<li>使用和学习上都要比 C 或当前的 C++ 容易得多</li>
+<li>完全类型安全——没有隐式类型违规，没有悬空指针</li>
+<li>完全资源安全——没有泄漏，不需要垃圾收集器</li>
+<li>为其构建工具要相对简单——不要有宏</li>
+<li>跟当前 C++ 一样快或更快——零开销原则</li>
+<li>性能可预测——适用于嵌入式系统</li>
+<li>表达力不亚于当前的 C++——很好地处理硬件</li>
+</ul>
+<p>这和《C++ 语言的设计和演化》[Stroustrup 1994] 及更早版本中阐述的设计目标并没有太多不同。显然，这是一项艰巨的任务，并且与较旧的 C 和 C++ 的多数用法不兼容。</p>
+<p>最早，在 C++ 还是“带类的 C”的时候，人们就建议创建语言的安全子集，并使用编译器开关来强制执行这种安全性。但是，由于许多原因中的某一个原因，这些建议失败了：</p>
+<ul>
+<li>没有足够的人在“安全”的定义上达成一致。</li>
+<li>不安全特性（对每种“不安全”的定义来说）是构建基本安全抽象的基础。</li>
+<li>安全子集的表达能力不足。</li>
+<li>安全子集效率低下。</li>
+</ul>
+<p>第二个原因意味着，你不能仅仅通过禁止不安全的功能来定义一个安全的 C++。“通过限制以达到完美”这个方法，对于编程语言的设计来说，在极其有限的场合下才能发挥作用。你需要考虑那些一般来说不安全但有安全用途的特性的使用场景和特征。此外，该标准不能放弃向后兼容（<a href="01.md#11-%E5%B9%B4%E8%A1%A8">§1.1</a>），所以我们需要一种不同的方法。</p>
+<p>从一开始，C++ 就采用了不同的哲学 [Stroustrup 1994]：</p>
+<blockquote>
+<p>让良好的编程成为可能比防止错误更重要。</p>
+</blockquote>
+<p>这意味着我们需要“良好使用”的指南，而不是语言规则。但是，为了在工业规模上有用，指南必须可以通过工具强制执行。例如，从 C 和 C++ 的早期开始，我们就知道悬空指针存在的问题。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span>* p = <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[]&#123;<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">11</span>,<span class="hljs-number">13</span>&#125;;<br><span class="hljs-comment">// ...</span><br><span class="hljs-keyword">delete</span>[] p;    <span class="hljs-comment">// 删除 p 指向的数组</span><br>               <span class="hljs-comment">// 现在 p 没有指向有效对象，处于“悬空”状态</span><br><span class="hljs-comment">// ...</span><br>*p = <span class="hljs-number">7</span>;        <span class="hljs-comment">// 多半会发生灾难</span><br></code></pre></td></tr></table></figure>
+
+<p>虽然许多程序员已经开发出防止指针悬空的技术。但是，在大多数大型代码库中，悬空指针仍然是一个主要问题，安全性问题比过去更加关键。一些悬空的指针可以作为安全漏洞被利用。</p>
+<h3 id="10-6-1-一般方法"><a href="#10-6-1-一般方法" class="headerlink" title="10.6.1 一般方法"></a>10.6.1 一般方法</h3><p>在 2004 年，我帮助制定了一套用于飞行控制软件 [Lockheed Martin Corporation 2005] 的编码指南，这套指南接近于我对安全性、灵活性和性能的构想。2014 年，我开始编写一套编码指南，以解决这一问题，并在更广泛的范围内应用。这一方面是为了回应对用好 C++11 的实用指南的强烈需求，另外一方面是有人认为的好的 C++11 让我看着害怕。与人们交谈后，我很快发现了一个明显的事实：我并不是唯一沿着这样的路线思考和工作的人。因此，一些经验丰富的 C++ 程序员、工具制作者和库构建者齐心协力，与来自 C++ 社区的众多参与者一起启动了 <strong>C++ 核心指南</strong>项目 [Stroustrup and Sutter 2014–2020]。该项目是开源的（MIT 许可证），贡献者列表可以在 GitHub 上找到。早期，来自摩根士丹利（主要是我）、微软（主要是 Herb Sutter、Gabriel Dos Reis 和 Neil Macintosh）、Red Hat（主要是 Jonathan Wakely）、CERN、Facebook 和谷歌的贡献者都做出了突出贡献。</p>
+<p>核心指南绝不是唯一的 C++ 编码指南项目，但却是最突出、最雄心勃勃的。它们的目标明确而清晰，那就是显著提升 C++ 代码的质量。例如，早在 Bjarne Stroustrup、Herb Sutter 和 Gabriel Dos Reis 的论文中 [Stroustrup et al. 2015] 就阐明了关于完全类型和资源安全的理想和基础模型。</p>
+<p>为了实现这些雄心勃勃的目标，我们采用了一种“鸡尾酒式”的混合方法：</p>
+<ul>
+<li><strong>规则</strong>：一套庞大的规则集，意图在 C++ 里实现使用上的类型安全和资源安全，推荐那些已知的有效实践，并禁止已知的错误和低效的来源。</li>
+<li><strong>基础库</strong>：一组库组件，使程序员可以有效的编写低层次程序，而无需使用已知的容易出错的功能，并且从总体上为编程提供更高层次的基础。大多数组件来自标准库，其中一些来自以 ISO 标准 C++ 编写的小型指南支持库（Guidelines Support Library，GSL）。</li>
+<li><strong>静态分析</strong>：检测违规行为、并强制执行指南关键部分的工具。</li>
+</ul>
+<p>这些方法中的每一种都有很长的历史，但是每一项都无法单独在工业规模上解决这些问题。例如，我是静态分析的忠实拥护者，但是如果程序员使用动态链接的方式在一个单独编译的程序中编写任意复杂的代码，那么我最感兴趣的分析算法（例如，消除悬空指针）是不能求解成功的。这里的“不能”是指“一般说来，理论上是不可能的”，以及“对于工业规模的程序而言在计算上过于昂贵”。</p>
+<p>基本方式不是简单的限制，而是我称之为“超集的子集”或 SELL 的方法 [Stroustrup 2005]：</p>
+<ul>
+<li>首先，通过库功能对语言进行扩展，从而为正确的使用语言奠定坚实的基础。</li>
+<li>然后，通过删除不安全、易出错及开销过高的功能来设置子集。</li>
+</ul>
+<p>对于库，我们主要依赖标准库的各个部分，例如 <code>variant</code>（<a href="08.md#83-variantoptional-%E5%92%8C-any">§8.3</a>）和 <code>vector</code>。小型<strong>指南支持库</strong>（GSL）提供了类型安全的访问支持，例如 <code>span</code> 可以提供在给定类型的连续元素序列上的带范围检查的访问（<a href="09.md#938-%E8%B7%A8%E5%BA%A6">§9.3.8</a>）。我们的想法是通过将 GSL 吸收到 ISO 标准库中，从而最终也就不需要它了。例如，<code>span</code> 已被添加到 C++20 标准库中。当时机成熟时，GSL 中对于契约的微弱支持也应当被合适的契约实现所替代（<a href="09.md#961-%E5%A5%91%E7%BA%A6">§9.6.1</a>）。</p>
+<h3 id="10-6-2-静态分析"><a href="#10-6-2-静态分析" class="headerlink" title="10.6.2 静态分析"></a>10.6.2 静态分析</h3><p>为了能规模化，静态分析完全是局部的（一次仅一个函数或一个类）。最难的问题与对象的生命周期有关。RAII 是必不可少的：我们已经不止一次的看到，手动资源管理的方法在很多语言中都很容易出错。此外，也有很多现存的程序，以一种有原则的方式使用指针和迭代器。我们必须接受此类使用方式。要使一个程序安全很容易，我们只需禁止一切不安全的功能。然而，保持 C++ 的表现力和性能是核心指南的目标之一，所以我们不能仅仅通过限制来获得安全。我们的目的是一个更好的 C++，而不是一个缓慢或被阉割的子集。</p>
+<p>通过阐明原则、让那些优秀的做法更加显而易见、以及对已知问题进行机械化检查，这些指南可以帮助我们把教学的重点放在那些让 C++ 更有效的方面。这些指南还有助于减轻对语言本身的压力，以适应最新的发展趋势。</p>
+<p>对于对象的生命周期，主要有两个要求：</p>
+<ul>
+<li>切勿指向超出范围的对象。</li>
+<li>切勿访问无效的对象。</li>
+</ul>
+<p>考虑以下“基础模型”论文中的一个例子 [Stroustrup et al. 2015]）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> glob = <span class="hljs-number">666</span>;<br><span class="hljs-function"><span class="hljs-type">int</span>* <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-type">int</span>* p)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> x = <span class="hljs-number">4</span>;          <span class="hljs-comment">// 局部变量</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-keyword">return</span> &amp;x;          <span class="hljs-comment">// 不行，会指向一个被销毁的栈帧</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-keyword">return</span> &amp;glob ;      <span class="hljs-comment">// 可以，指向某个“永远存在”的对象</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-type">int</span>&#123;<span class="hljs-number">7</span>&#125;;  <span class="hljs-comment">// 可以（算是可以吧：不悬空，</span><br>                        <span class="hljs-comment">//       但是把所有者作为 int* 返回了）</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-keyword">return</span> p;           <span class="hljs-comment">// 可以，来自调用者</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>指针指向已知会超过函数生命周期的对象（例如，作为参数被传递到函数中），我们可以返回它，但对于指向局部资源的指针就不行。在遵循该指南的程序中，我们可以确保作为参数的指针指向某资源或为 <code>nullptr</code>。</p>
+<p>为避免泄漏，上面示例中的“裸 <code>new</code>”操作应当通过使用资源句柄（RAII）或所有权标注来消除。</p>
+<p>如果指针所指向的对象已重新分配，则该指针会变为无效。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp">vector&lt;<span class="hljs-type">int</span>&gt; v = &#123; <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span> &#125;;<br><span class="hljs-type">int</span>* p = &amp;v[<span class="hljs-number">2</span>];<br>v.<span class="hljs-built_in">push_back</span>(<span class="hljs-number">4</span>); <span class="hljs-comment">// v 的元素可能会被重新分配</span><br>*p = <span class="hljs-number">5</span>;         <span class="hljs-comment">// 错误：p 可能已失效</span><br><span class="hljs-type">int</span>* q = &amp;v[<span class="hljs-number">2</span>];<br>v.<span class="hljs-built_in">clear</span>();      <span class="hljs-comment">// v 所有的元素都被删除</span><br>*q = <span class="hljs-number">7</span>;         <span class="hljs-comment">// 错误：q 无效</span><br></code></pre></td></tr></table></figure>
+
+<p>无效检查甚至比检查简单的悬空指针还要困难，因为很难确定哪个函数会移动对象以及是否将其视为失效（指针 <code>p</code> 仍然指向某个东西，但从概念上讲已经指向了完全不同的元素）。尚不清楚在没有标注或非本地状态的情况下，静态分析器是否可以完全处理无效检查。在最初的实现中，每个将对象作为非 <code>const</code> 操作的函数都被假定为会使指针无效，但这太保守了，导致了太多的误报。最初，关于对象生命周期检查的详细规范是由 Herb Sutter [Sutter 2019] 编写的，并由他在微软的同事实现。</p>
+<p>范围检查和 <code>nullptr</code> 检查是通过库支持（GSL）完成的。然后使用静态分析来确保库的使用是一致的。</p>
+<p>静态分析设想最早是由 Neil Macintosh 实现的，目前已作为微软 Visual Studio 的一部分进行发布。有一些检查规则已经成为了 Clang 和 HSR 的 Cevelop（Eclipse 插件）[Cevelop 2014–2020] 的一部分。一些课程和书籍中都加入了关于这些规则的介绍（例如 [Stroustrup 2018f]）。</p>
+<p>核心指南是为逐步和有选择地采用而设计的。因此，我们看到其中一部分在工业和教育领域被广泛采用，但很少被完全采用。要想完全采用，良好的工具支持必不可少。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/History-of-C/" class="category-chain-item">History of C++</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/" class="print-no-link">#C++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>在纷繁多变的世界里茁壮成长：C++ 2006–2020</div>
+      <div>http://example.com/2024/10/29/Cxx_HOPL4_zh_10/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Bjarne Stroustrup</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/29/Cxx_HOPL4_zh_11/" title="在纷繁多变的世界里茁壮成长：C++ 2006–2020">
+                        <span class="hidden-mobile">在纷繁多变的世界里茁壮成长：C++ 2006–2020</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

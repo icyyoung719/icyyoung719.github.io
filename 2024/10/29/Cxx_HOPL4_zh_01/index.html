@@ -1,0 +1,744 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Bjarne Stroustrup">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在纷繁多变的世界里茁壮成长：C++ 2006–2020">
+<meta property="og:url" content="http://example.com/2024/10/29/Cxx_HOPL4_zh_01/index.html">
+<meta property="og:site_name" content="Blog of Icyyoung">
+<meta property="og:description" content="前言">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/blog_default_img.jpg">
+<meta property="article:published_time" content="2024-10-29T13:21:09.459Z">
+<meta property="article:modified_time" content="2024-10-29T13:24:24.892Z">
+<meta property="article:author" content="icyyoung">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/blog_default_img.jpg">
+  
+  
+  
+  <title>在纷繁多变的世界里茁壮成长：C++ 2006–2020 - Blog of Icyyoung</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Blog of Icyyoung" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Icyyoung</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/1999/suitcase.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="在纷繁多变的世界里茁壮成长：C++ 2006–2020"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-29 21:21" pubdate>
+          2024年10月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">在纷繁多变的世界里茁壮成长：C++ 2006–2020</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h1><p>最初，我设计 C++ 是为了回答这样的一个问题：如何直接操作硬件，同时又支持高效、高级的抽象？C++ 在 1980 年代仅仅是一个基于 C 和 Simula 语言功能的组合，在当时的计算机上作为系统编程的相对简单的解决方案，经过多年的发展，已经成长为一个远比当年更复杂和有效的工具，应用极其广泛。它保持了如下两方面的关注：</p>
+<ul>
+<li><strong>语言构件到硬件功能的直接映射</strong></li>
+<li><strong>零开销抽象</strong></li>
+</ul>
+<p>这种组合是 C++ 区别于大多数语言的决定性特征。“零开销”是这样解释的 [Stroustrup 1994]：</p>
+<ul>
+<li>你不用的东西，你就不需要付出代价（“没有分散开销”）。</li>
+<li>你使用的东西，你手工写代码也不会更好。</li>
+</ul>
+<p>抽象在代码中体现为函数、类、模板、概念和别名。</p>
+<p>C++ 是一种活的语言，因此它会不断变化以应对新出现的挑战和演变中的使用风格。2006 年至 2020 年期间的这些挑战和变化是本文的重点。当然，一门语言本身不会改变；是人们改变了它。所以这也是参与 C++ 演化的人们的故事，他们识别出面临的挑战，诠释解决方案的局限，组织他们的工作成果，并解决他们之间必然出现的分歧。当我呈现一种语言或标准库特性时，其背景是 C++ 的一般发展和当时参与者的关切。对于在早期被接受的许多特性，我们现在从大量的工业使用中获得了后见之明。</p>
+<p>C++ 主要是一种工业语言，一种构建系统的工具。对于用户来说，C++ 不仅仅是一种由规范定义的语言；它是由许多部分组成的工具集的一部分：</p>
+<ul>
+<li>语言</li>
+<li>标准库</li>
+<li>许多的其他库</li>
+<li>庞大的——常常是旧的——代码库</li>
+<li>工具（包括其他语言）</li>
+<li>教学和培训</li>
+<li>社区支持</li>
+</ul>
+<p>只要有可能，只要合适，我就会考虑这些组成部分之间的相互作用。</p>
+<p>有一种流传广泛的谬见，就是程序员希望他们的语言是简单的。当你不得不学习一门新的语言、不得不设计一门编程课程、或是在学术论文中描述一门语言时，追求简单显然是实情。对于这样的用途，让语言干净地体现一些明确的原则是一个明显的优势，也是理想情况。当开发人员的焦点从学习转移到交付和维护重要的应用程序时，他们的需求从简单转移到全面的支持、稳定性（兼容性）和熟悉度。人们总是混淆熟悉度和简单，如果可以选择的话，他们更倾向于熟悉度而不是简单。</p>
+<p>看待 C++ 的一种方式是，把它看成几十年来三种相互矛盾的要求的结果：</p>
+<ul>
+<li><strong>让语言更简单！</strong></li>
+<li><strong>立即添加这两个必要特性！！</strong></li>
+<li><strong>不要搞砸我的（任何）代码！！！</strong></li>
+</ul>
+<p>我添加了感叹号，因为这些观点的表达常常带着不小的情绪。</p>
+<p>我想让简单的事情简单做，并确保复杂的事情并非不可能，也不会没有必要地难。前者对于不是语言律师的开发者来说是必不可少的；后者对于基础性代码的实现者是必要的。稳定是所有意图持续运行几十年的系统的基本属性，然而一种活的语言必须适应不断变化的世界。</p>
+<p>C++ 有一些总体构想。我阐述了一些（如《C++ 语言的设计和演化》（*The Design and Evolution of C++*）[Stroustrup 1994]（<a href="02.md#2-%E8%83%8C%E6%99%AFc-%E7%9A%84-19792006">§2</a>）、设计原则（<a href="09.md#91-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99">§9.1</a>），以及 C++ 模型（<a href="11.md#111-c-%E6%A8%A1%E5%9E%8B">§11.1</a>））并试图让语言在演化时遵循它们。然而，C++ 的开发由 ISO 标准委员会控制，它主要关注的是长长的新特性列表，以及对实际细节的关心。这是社区里最能表达和最有影响力的人所坚持的东西，仅仅基于哲学或理论观点就否认他们的关切和意见的话，恐怕就失之鲁莽了。</p>
+<h2 id="1-1-年表"><a href="#1-1-年表" class="headerlink" title="1.1 年表"></a>1.1 年表</h2><p>为了给出一个快速的概述，这里有一个粗略的年表。如果你不熟悉 C++，很多术语、构件、库都会晦涩难懂；大多数在以前的 HOPL 论文 [Stroustrup 1993, 2007] 或本文中有详细解释。</p>
+<ul>
+<li>1979 年：工作始于“带类的 C”，它变成了 C++；拥有了第一个非研究性的用户；<ul>
+<li>语言：<code>class</code>、构造函数&#x2F;析构函数、<code>public</code>&#x2F;<code>private</code>、简单继承、函数参数类型检查</li>
+<li>库：<code>task</code>（协程和仿真支持）、用宏参数化的 <code>vector</code></li>
+</ul>
+</li>
+<li>1985 年：C++ 的首次商业发行；TC++PL1 [Stroustrup 1985b]<ul>
+<li>语言：<code>virtual</code> 函数、运算符重载、引用、常量</li>
+<li>库：<code>complex</code> 算法，流输入输出</li>
+</ul>
+</li>
+<li>1989–91 年：ANSI 和 ISO 标准化开始；TC++PL2 [Stroustrup 1991]<ul>
+<li>语言：抽象类、多重继承、异常、模板</li>
+<li>库：输入输出流（但没有 <code>task</code>）</li>
+</ul>
+</li>
+<li>1998 年：C++98、第一个 ISO C++ 标准 [Koenig1998]、TC++PL3 [Stroustrup 1997]<ul>
+<li>语言：<code>namespace</code>、具名类型转换<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="译注：即新的、非 C 风格的类型转换">[1]</span></a></sup>、<code>bool</code>、<code>dynamic_cast</code></li>
+<li>库：STL（容器和算法）、<code>string</code>、<code>bitset</code></li>
+</ul>
+</li>
+<li>2011 年：C++11 [Becker 2011]，TC++PL4 [Stroustrup 2013]<ul>
+<li>语言：内存模型、<code>auto</code>、范围 <code>for</code>、<code>constexpr</code>、lambda 表达式、用户定义字面量……</li>
+<li>库：<code>thread</code> 和锁、<code>future</code>、<code>unique_ptr</code>、<code>shared_ptr</code>、<code>array</code>、时间和时钟、随机数、无序容器（哈希表）……</li>
+</ul>
+</li>
+<li>2014 年：C++14 [du Toit 2014]<ul>
+<li>语言：泛型 lambda 表达式、<code>constexpr</code> 函数中的局部变量、数字分隔符……</li>
+<li>库：用户定义字面量……</li>
+</ul>
+</li>
+<li>2017 年：C++17 [Smith 2017]<ul>
+<li>语言：结构化绑定、变量模板、模板参数的构造函数推导……</li>
+<li>库：文件系统、<code>scoped_lock</code>、<code>shared_mutex</code>（读写锁）、<code>any</code>、<code>variant</code>、<code>optional</code>、<code>string_view</code>、并行算法……</li>
+</ul>
+</li>
+<li>2020 年：C++20 [Smith 2020]<ul>
+<li>语言：<code>concept</code>、<code>module</code>、协程、三路比较、改进对编译期计算的支持……</li>
+<li>库：概念、范围、日期和时区、<code>span</code>、格式、改进的并发和并行支持……</li>
+</ul>
+</li>
+</ul>
+<p>请注意，早年 C++ 的库是很匮乏的。事实上，当时还是存在大量各种各样的库（包括图形用户界面库），但很少被广泛使用，并且很多库是专有软件。这是在开源开发普及之前的事。这造成了 C++ 社区没有一个重要的共享基础库。在我的 HOPL2 论文 [Stroustrup 1993] 的回顾中，我认为那是早期 C++ 最糟糕的错误。</p>
+<p>任务库 [Stroustrup 1985a,c] 是一个基于协程的库，支持事件驱动的仿真（例如随机数生成），与替代方案相比是非常高效的，甚至可以运行在很小的计算机上。例如，我在 256KB 的内存中运行了 700 个任务的仿真。任务库在 C++ 早期非常重要，是贝尔实验室和其他地方许多重要应用的基础。然而，它有点丑陋，并且不容易移植到 Sun 的 SPARC 体系结构，因此大多数 1989 年以后的实现都不支持它。2020 年，协程才刚刚回归（<a href="09.md#932-%E5%8D%8F%E7%A8%8B">§9.3.2</a>）。</p>
+<p>总的来说，C++ 的特性不断增多。ISO 委员会也废除了一些特性，对语言进行了稍许清理，但是考虑到 C++ 的大量使用（数十亿行代码），重要的特性是永远不会被移除的。稳定性也是 C++ 的关键特性。要解决跟语言不断增长的规模和复杂性相关的问题，办法之一是通过编码指南（<a href="10.md#106-%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97">§10.6</a>）。</p>
+<h2 id="1-2-概述"><a href="#1-2-概述" class="headerlink" title="1.2 概述"></a>1.2 概述</h2><p>这篇论文是按照 ISO 标准发布的大致时间顺序组织的。</p>
+<ul>
+<li><a href="#1-%E5%89%8D%E8%A8%80">§1</a>：前言</li>
+<li><a href="02.md#2-%E8%83%8C%E6%99%AFc-%E7%9A%84-19792006">§2</a>：背景：C++ 的 1979–2006</li>
+<li><a href="03.md#3-c-%E6%A0%87%E5%87%86%E5%A7%94%E5%91%98%E4%BC%9A">§3</a>：C++ 标准委员会</li>
+<li><a href="04.md#4-c11%E6%84%9F%E8%A7%89%E5%83%8F%E6%98%AF%E9%97%A8%E6%96%B0%E8%AF%AD%E8%A8%80">§4</a>：C++11：感觉像是门新语言</li>
+<li><a href="05.md#5-c14%E5%AE%8C%E6%88%90-c11">§5</a>：C++14：完成 C++11</li>
+<li><a href="06.md#6-%E6%A6%82%E5%BF%B5">§6</a>：概念</li>
+<li><a href="07.md#7-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86">§7</a>：错误处理</li>
+<li><a href="08.md#8-c17%E5%A4%A7%E6%B5%B7%E8%BF%B7%E8%88%AA">§8</a>：C++17：大海迷航</li>
+<li><a href="09.md#9-c20%E6%96%B9%E5%90%91%E4%B9%8B%E4%BA%89">§9</a>：C++20：方向之争</li>
+<li><a href="10.md#10-2020-%E5%B9%B4%E7%9A%84-c">§10</a>：2020 年的 C++</li>
+<li><a href="11.md#11-%E5%9B%9E%E9%A1%BE">§11</a>：回顾</li>
+</ul>
+<p>如果一个主题跨越了一段较长的时间，比如“概念”和标准化流程，我会把它放在一个地方，让内容优先于时间顺序。</p>
+<p>这篇论文特别长，真是一篇专题论文了。但是从 2006 年到 2020 年，C++ 经历了两次主要修订：C++11 和 C++20；而论文的早期读者们也都要求获得更多的信息。结果就是论文的页数几乎翻倍。即使以目前的篇幅，读者也会发现某些重要的主题没有得到充分的展现，如并发和标准库。</p>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>译注：即新的、非 C 风格的类型转换
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/History-of-C/" class="category-chain-item">History of C++</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/C/" class="print-no-link">#C++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>在纷繁多变的世界里茁壮成长：C++ 2006–2020</div>
+      <div>http://example.com/2024/10/29/Cxx_HOPL4_zh_01/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Bjarne Stroustrup</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/10/29/Cxx_HOPL4_zh_03/" title="在纷繁多变的世界里茁壮成长：C++ 2006–2020">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在纷繁多变的世界里茁壮成长：C++ 2006–2020</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/11/algorithm/algorithm_learning/" title="cpp stl">
+                        <span class="hidden-mobile">cpp stl</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
