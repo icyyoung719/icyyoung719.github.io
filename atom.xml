@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-10-29T13:26:33.015Z</updated>
+  <updated>2025-02-21T05:46:29.705Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从edge看程序的多进程设计</title>
+    <link href="http://example.com/2025/02/21/Edge_multi_process/"/>
+    <id>http://example.com/2025/02/21/Edge_multi_process/</id>
+    <published>2025-02-21T05:09:01.287Z</published>
+    <updated>2025-02-21T05:46:29.705Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0.前言"></a>0.前言</h2><p>参考链接：<a href="https://blogs.windows.com/msedgedev/2020/09/30/microsoft-edge-multi-process-architecture/">Microsoft Edge’s multi-process architecture</a></p><p>进程是程序运作的基本单位，而线程隶属于进程，一个进程可以有包含主线程在内的多个线程，用来提升性能。</p><p>平时在编程中，很少会遇到需要额外创建进程的情况，自己编写的代码几乎都是一个进程就够了。但是在实际的开发中，多进程也是很常用的策略，但是我了解不多，因此借着Edge的设计来看看多进程设计。</p><h2 id="1-Edge的多进程设计"><a href="#1-Edge的多进程设计" class="headerlink" title="1.Edge的多进程设计"></a>1.Edge的多进程设计</h2><p>浏览器含有多个进程模块：</p><ul><li>1.Browser process：是主进程，组织打开的窗口、页面，控制浏览器本身的一些基本元素（上方的地址栏、前进后退按钮），并且对网络、文件等进程拥有特殊权限。</li><li>2.Renderer processes：执行代码渲染网页，处理HTML、CSS、JavaScript、images等，占用的资源受内容影响很大。</li><li>3.GPU process：与GPU关联，借助GPU加速上面提到的网页渲染。</li><li>4.Utility process：音频播放、网络服务、摄像头视频捕捉、解码、信息收集等，便于Edge掌握总体资源。</li><li>5.Plug-in processes and extension processes：包含Flash等插件以及其他扩展。</li><li>6.Crashpad handler process：用于将crash信息传递给微软。</li></ul><p>示意图片：</p><img src="/img/Edge_multi_process.png"><img src="/img/Edge_multi_process_2.png"><img src="/img/Edge_multi_process_3.png"><h2 id="2-多进程架构的优点"><a href="#2-多进程架构的优点" class="headerlink" title="2. 多进程架构的优点"></a>2. 多进程架构的优点</h2><h3 id="2-1-安全设计"><a href="#2-1-安全设计" class="headerlink" title="2.1 安全设计"></a>2.1 安全设计</h3><ul><li><p><strong>进程隔离</strong><br>每个进程独立运行，防止恶意网页或攻击利用漏洞跨进程传播。例如，如果恶意软件利用其中一个renderer进程的漏洞，会因权限受到严格限制而难以影响其他部分，从而保护用户的敏感信息。</p></li><li><p><strong>权限受限</strong><br>由于renderer进程权限较低，即使受到攻击，也仅限于网页渲染这一环节，攻击者难以获得更高权限或控制整个系统。</p></li><li><p><strong>资源访问控制</strong><br>用单独的工具进程管理音频、网络、视频捕捉和数据解码等资源，可以更好地保护这些操作，减少潜在的安全风险。</p></li></ul><h3 id="2-2-提高可靠性"><a href="#2-2-提高可靠性" class="headerlink" title="2.2 提高可靠性"></a>2.2 提高可靠性</h3><ul><li><p><strong>进程崩溃隔离</strong><br>当某个网页、扩展或插件崩溃时，仅该进程受到影响，其他进程仍能继续稳定运行，大大提升了浏览器的整体稳定性和用户体验。</p></li><li><p><strong>容错和恢复能力</strong><br>多进程架构使得浏览器能够更容易地检测和隔离出问题的部分，从而快速恢复正常状态，避免全局崩溃的情况发生。</p></li></ul><h3 id="2-3-资源可控性与效率"><a href="#2-3-资源可控性与效率" class="headerlink" title="2.3 资源可控性与效率"></a>2.3 资源可控性与效率</h3><ul><li><p><strong>资源监控</strong><br>每个进程独立运行，让用户可以在任务管理器中清晰地看到各个进程的资源占用情况（如CPU、内存、GPU等），从而判断是浏览器自身、网站内容还是扩展或插件在消耗资源。</p></li><li><p><strong>优化资源调度</strong><br>将任务分散到不同的进程中，系统可以更高效地进行资源分配，保证各模块在不同硬件环境下都能得到最佳性能。</p></li></ul><h3 id="2-4-性能优化"><a href="#2-4-性能优化" class="headerlink" title="2.4 性能优化"></a>2.4 性能优化</h3><ul><li><p><strong>并行处理</strong><br>多进程设计使得浏览器可以同时处理多个任务（如页面渲染、视频处理和数据解码），减少任务间的互相干扰，从而实现更流畅的用户体验。</p></li><li><p><strong>提高系统响应速度</strong><br>在重负载情况下，各个进程独立运行可以减缓整体系统的压力，提升浏览器和操作系统的响应速度。</p></li></ul>]]></content>
+    
+    
+    <summary type="html">Microsoft Edge’s multi-process architecture</summary>
+    
+    
+    
+    <category term="blog" scheme="http://example.com/categories/blog/"/>
+    
+    
+    <category term="Operater System" scheme="http://example.com/tags/Operater-System/"/>
+    
+  </entry>
   
   <entry>
     <title>在纷繁多变的世界里茁壮成长：C++ 2006–2020</title>
@@ -231,12 +252,12 @@
     <link href="http://example.com/2024/10/29/Cxx_HOPL4_zh_01/"/>
     <id>http://example.com/2024/10/29/Cxx_HOPL4_zh_01/</id>
     <published>2024-10-29T13:21:09.459Z</published>
-    <updated>2024-10-29T13:24:24.892Z</updated>
+    <updated>2025-02-21T05:06:47.176Z</updated>
     
     <content type="html"><![CDATA[<h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h1><p>最初，我设计 C++ 是为了回答这样的一个问题：如何直接操作硬件，同时又支持高效、高级的抽象？C++ 在 1980 年代仅仅是一个基于 C 和 Simula 语言功能的组合，在当时的计算机上作为系统编程的相对简单的解决方案，经过多年的发展，已经成长为一个远比当年更复杂和有效的工具，应用极其广泛。它保持了如下两方面的关注：</p><ul><li><strong>语言构件到硬件功能的直接映射</strong></li><li><strong>零开销抽象</strong></li></ul><p>这种组合是 C++ 区别于大多数语言的决定性特征。“零开销”是这样解释的 [Stroustrup 1994]：</p><ul><li>你不用的东西，你就不需要付出代价（“没有分散开销”）。</li><li>你使用的东西，你手工写代码也不会更好。</li></ul><p>抽象在代码中体现为函数、类、模板、概念和别名。</p><p>C++ 是一种活的语言，因此它会不断变化以应对新出现的挑战和演变中的使用风格。2006 年至 2020 年期间的这些挑战和变化是本文的重点。当然，一门语言本身不会改变；是人们改变了它。所以这也是参与 C++ 演化的人们的故事，他们识别出面临的挑战，诠释解决方案的局限，组织他们的工作成果，并解决他们之间必然出现的分歧。当我呈现一种语言或标准库特性时，其背景是 C++ 的一般发展和当时参与者的关切。对于在早期被接受的许多特性，我们现在从大量的工业使用中获得了后见之明。</p><p>C++ 主要是一种工业语言，一种构建系统的工具。对于用户来说，C++ 不仅仅是一种由规范定义的语言；它是由许多部分组成的工具集的一部分：</p><ul><li>语言</li><li>标准库</li><li>许多的其他库</li><li>庞大的——常常是旧的——代码库</li><li>工具（包括其他语言）</li><li>教学和培训</li><li>社区支持</li></ul><p>只要有可能，只要合适，我就会考虑这些组成部分之间的相互作用。</p><p>有一种流传广泛的谬见，就是程序员希望他们的语言是简单的。当你不得不学习一门新的语言、不得不设计一门编程课程、或是在学术论文中描述一门语言时，追求简单显然是实情。对于这样的用途，让语言干净地体现一些明确的原则是一个明显的优势，也是理想情况。当开发人员的焦点从学习转移到交付和维护重要的应用程序时，他们的需求从简单转移到全面的支持、稳定性（兼容性）和熟悉度。人们总是混淆熟悉度和简单，如果可以选择的话，他们更倾向于熟悉度而不是简单。</p><p>看待 C++ 的一种方式是，把它看成几十年来三种相互矛盾的要求的结果：</p><ul><li><strong>让语言更简单！</strong></li><li><strong>立即添加这两个必要特性！！</strong></li><li><strong>不要搞砸我的（任何）代码！！！</strong></li></ul><p>我添加了感叹号，因为这些观点的表达常常带着不小的情绪。</p><p>我想让简单的事情简单做，并确保复杂的事情并非不可能，也不会没有必要地难。前者对于不是语言律师的开发者来说是必不可少的；后者对于基础性代码的实现者是必要的。稳定是所有意图持续运行几十年的系统的基本属性，然而一种活的语言必须适应不断变化的世界。</p><p>C++ 有一些总体构想。我阐述了一些（如《C++ 语言的设计和演化》（*The Design and Evolution of C++*）[Stroustrup 1994]（<a href="02.md#2-%E8%83%8C%E6%99%AFc-%E7%9A%84-19792006">§2</a>）、设计原则（<a href="09.md#91-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99">§9.1</a>），以及 C++ 模型（<a href="11.md#111-c-%E6%A8%A1%E5%9E%8B">§11.1</a>））并试图让语言在演化时遵循它们。然而，C++ 的开发由 ISO 标准委员会控制，它主要关注的是长长的新特性列表，以及对实际细节的关心。这是社区里最能表达和最有影响力的人所坚持的东西，仅仅基于哲学或理论观点就否认他们的关切和意见的话，恐怕就失之鲁莽了。</p><h2 id="1-1-年表"><a href="#1-1-年表" class="headerlink" title="1.1 年表"></a>1.1 年表</h2><p>为了给出一个快速的概述，这里有一个粗略的年表。如果你不熟悉 C++，很多术语、构件、库都会晦涩难懂；大多数在以前的 HOPL 论文 [Stroustrup 1993, 2007] 或本文中有详细解释。</p><ul><li>1979 年：工作始于“带类的 C”，它变成了 C++；拥有了第一个非研究性的用户；<ul><li>语言：<code>class</code>、构造函数&#x2F;析构函数、<code>public</code>&#x2F;<code>private</code>、简单继承、函数参数类型检查</li><li>库：<code>task</code>（协程和仿真支持）、用宏参数化的 <code>vector</code></li></ul></li><li>1985 年：C++ 的首次商业发行；TC++PL1 [Stroustrup 1985b]<ul><li>语言：<code>virtual</code> 函数、运算符重载、引用、常量</li><li>库：<code>complex</code> 算法，流输入输出</li></ul></li><li>1989–91 年：ANSI 和 ISO 标准化开始；TC++PL2 [Stroustrup 1991]<ul><li>语言：抽象类、多重继承、异常、模板</li><li>库：输入输出流（但没有 <code>task</code>）</li></ul></li><li>1998 年：C++98、第一个 ISO C++ 标准 [Koenig1998]、TC++PL3 [Stroustrup 1997]<ul><li>语言：<code>namespace</code>、具名类型转换<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="译注：即新的、非 C 风格的类型转换">[1]</span></a></sup>、<code>bool</code>、<code>dynamic_cast</code></li><li>库：STL（容器和算法）、<code>string</code>、<code>bitset</code></li></ul></li><li>2011 年：C++11 [Becker 2011]，TC++PL4 [Stroustrup 2013]<ul><li>语言：内存模型、<code>auto</code>、范围 <code>for</code>、<code>constexpr</code>、lambda 表达式、用户定义字面量……</li><li>库：<code>thread</code> 和锁、<code>future</code>、<code>unique_ptr</code>、<code>shared_ptr</code>、<code>array</code>、时间和时钟、随机数、无序容器（哈希表）……</li></ul></li><li>2014 年：C++14 [du Toit 2014]<ul><li>语言：泛型 lambda 表达式、<code>constexpr</code> 函数中的局部变量、数字分隔符……</li><li>库：用户定义字面量……</li></ul></li><li>2017 年：C++17 [Smith 2017]<ul><li>语言：结构化绑定、变量模板、模板参数的构造函数推导……</li><li>库：文件系统、<code>scoped_lock</code>、<code>shared_mutex</code>（读写锁）、<code>any</code>、<code>variant</code>、<code>optional</code>、<code>string_view</code>、并行算法……</li></ul></li><li>2020 年：C++20 [Smith 2020]<ul><li>语言：<code>concept</code>、<code>module</code>、协程、三路比较、改进对编译期计算的支持……</li><li>库：概念、范围、日期和时区、<code>span</code>、格式、改进的并发和并行支持……</li></ul></li></ul><p>请注意，早年 C++ 的库是很匮乏的。事实上，当时还是存在大量各种各样的库（包括图形用户界面库），但很少被广泛使用，并且很多库是专有软件。这是在开源开发普及之前的事。这造成了 C++ 社区没有一个重要的共享基础库。在我的 HOPL2 论文 [Stroustrup 1993] 的回顾中，我认为那是早期 C++ 最糟糕的错误。</p><p>任务库 [Stroustrup 1985a,c] 是一个基于协程的库，支持事件驱动的仿真（例如随机数生成），与替代方案相比是非常高效的，甚至可以运行在很小的计算机上。例如，我在 256KB 的内存中运行了 700 个任务的仿真。任务库在 C++ 早期非常重要，是贝尔实验室和其他地方许多重要应用的基础。然而，它有点丑陋，并且不容易移植到 Sun 的 SPARC 体系结构，因此大多数 1989 年以后的实现都不支持它。2020 年，协程才刚刚回归（<a href="09.md#932-%E5%8D%8F%E7%A8%8B">§9.3.2</a>）。</p><p>总的来说，C++ 的特性不断增多。ISO 委员会也废除了一些特性，对语言进行了稍许清理，但是考虑到 C++ 的大量使用（数十亿行代码），重要的特性是永远不会被移除的。稳定性也是 C++ 的关键特性。要解决跟语言不断增长的规模和复杂性相关的问题，办法之一是通过编码指南（<a href="10.md#106-%E7%BC%96%E7%A0%81%E6%8C%87%E5%8D%97">§10.6</a>）。</p><h2 id="1-2-概述"><a href="#1-2-概述" class="headerlink" title="1.2 概述"></a>1.2 概述</h2><p>这篇论文是按照 ISO 标准发布的大致时间顺序组织的。</p><ul><li><a href="#1-%E5%89%8D%E8%A8%80">§1</a>：前言</li><li><a href="02.md#2-%E8%83%8C%E6%99%AFc-%E7%9A%84-19792006">§2</a>：背景：C++ 的 1979–2006</li><li><a href="03.md#3-c-%E6%A0%87%E5%87%86%E5%A7%94%E5%91%98%E4%BC%9A">§3</a>：C++ 标准委员会</li><li><a href="04.md#4-c11%E6%84%9F%E8%A7%89%E5%83%8F%E6%98%AF%E9%97%A8%E6%96%B0%E8%AF%AD%E8%A8%80">§4</a>：C++11：感觉像是门新语言</li><li><a href="05.md#5-c14%E5%AE%8C%E6%88%90-c11">§5</a>：C++14：完成 C++11</li><li><a href="06.md#6-%E6%A6%82%E5%BF%B5">§6</a>：概念</li><li><a href="07.md#7-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86">§7</a>：错误处理</li><li><a href="08.md#8-c17%E5%A4%A7%E6%B5%B7%E8%BF%B7%E8%88%AA">§8</a>：C++17：大海迷航</li><li><a href="09.md#9-c20%E6%96%B9%E5%90%91%E4%B9%8B%E4%BA%89">§9</a>：C++20：方向之争</li><li><a href="10.md#10-2020-%E5%B9%B4%E7%9A%84-c">§10</a>：2020 年的 C++</li><li><a href="11.md#11-%E5%9B%9E%E9%A1%BE">§11</a>：回顾</li></ul><p>如果一个主题跨越了一段较长的时间，比如“概念”和标准化流程，我会把它放在一个地方，让内容优先于时间顺序。</p><p>这篇论文特别长，真是一篇专题论文了。但是从 2006 年到 2020 年，C++ 经历了两次主要修订：C++11 和 C++20；而论文的早期读者们也都要求获得更多的信息。结果就是论文的页数几乎翻倍。即使以目前的篇幅，读者也会发现某些重要的主题没有得到充分的展现，如并发和标准库。</p><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>译注：即新的、非 C 风格的类型转换<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>]]></content>
     
     
-    <summary type="html">前言</summary>
+    <summary type="html">1.前言</summary>
     
     
     
@@ -412,27 +433,6 @@
     
     
     <category term="汇编" scheme="http://example.com/tags/%E6%B1%87%E7%BC%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>背影</title>
-    <link href="http://example.com/2024/03/31/%E8%83%8C%E5%BD%B1/"/>
-    <id>http://example.com/2024/03/31/%E8%83%8C%E5%BD%B1/</id>
-    <published>2024-03-31T14:37:20.000Z</published>
-    <updated>2024-05-26T11:54:29.468Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="背影"><a href="#背影" class="headerlink" title="背影"></a>背影</h1><p><em>朱自清</em></p><p>我与父亲不相见已二年余了，我最不能忘记的是他的背影。</p><p>那年冬天，祖母死了，父亲的差使也交卸了，正是祸不单行的日子。我从北京到徐州，打算跟着父亲奔丧回家。到徐州见着父亲，看见满院狼藉的东西，又想起祖母，不禁簌簌地流下眼泪。父亲说：“事已如此，不必难过，好在天无绝人之路！”</p><p>回家变卖典质，父亲还了亏空；又借钱办了丧事。这些日子，家中光景很是惨淡，一半为了丧事，一半为了父亲赋闲。丧事完毕，父亲要到南京谋事，我也要回北京念书，我们便同行。</p><p>到南京时，有友人约去游逛，勾留了一日；第二日上午便须渡江到浦口，下午上车北去。父亲因为事忙，本已说定不送我，叫旅馆里一个熟识的茶房陪我同去。他再三嘱咐茶房，甚是仔细。但他终于不放心，怕茶房不妥帖；颇踌躇了一会。其实我那年已二十岁，北京已来往过两三次，是没有什么要紧的了。他踌躇了一会，终于决定还是自己送我去。我两三劝他不必去；他只说，“不要紧，他们去不好！”</p><p>我们过了江，进了车站。我买票，他忙着照看行李。行李太多了，得向脚夫行些小费才可过去。他便又忙着和他们讲价钱。我那时真是聪明过分，总觉他说话不大漂亮，非自己插嘴不可，但他终于讲定了价钱；就送我上车。他给我拣定了靠车门的一张椅子；我将他给我做的紫毛大衣铺好坐位。他嘱我路上小心，夜里警醒些，不要受凉。又嘱托茶房好好照应我。我心里暗笑他的迂；他们只认得钱，托他们只是白托！而且我这样大年纪的人，难道还不能料理自己么？唉，我现在想想，那时真是太聪明了！</p><p>我说道，“爸爸，你走吧。”他望车外看了看说：“我买几个橘子去。你就在此地，不要走动。”我看那边月台的栅栏外有几个卖东西的等着顾客。走到那边月台，须穿过铁轨，须跳下去又爬上去。父亲是一个胖子，走过去自然要费事些。我本来要去的，他不肯，只好让他去。我看见他戴着黑布小帽，穿着黑布大马褂，深青布棉袍，蹒跚地走到铁轨边，慢慢探身下去，尚不大难。可是他穿过铁轨，要爬上那边月台，就不容易了。他用两手攀着上面，两脚再向上缩；他肥胖的身子向左微倾，显出努力的样子。这时我看见他的背影，我的泪很快地流下来了。我赶紧拭干了泪。怕他看见，也怕别人看见。我再向外看时，他已抱了朱红的橘子往回走了。过铁轨时，他先将橘子散放在地上，自己慢慢爬下，再抱起橘子走。到这边时，我赶紧去搀他。他和我走到车上，将橘子一股脑儿放在我的皮大衣上。于是扑扑衣上的泥土，心里很轻松似的。过一会说：“我走了，到那边来信！”我望着他走出去。他走了几步，回过头看见我，说：“进去吧，里边没人。”等他的背影混入来来往往的人里，再找不着了，我便进来坐下，我的眼泪又来了。</p><p>近几年来，父亲和我都是东奔西走，家中光景是一日不如一日。他少年出外谋生，独力支持，做了许多大事。哪知老境却如此颓唐！他触目伤怀，自然情不能自已。情郁于中，自然要发之于外；家庭琐屑便往往触他之怒。他待我渐渐不同往日。但最近两年的不见，他终于忘却我的不好，只是惦记着我，惦记着我的儿子。我北来后，他写了一信给我，信中说道：“我身体平安，惟膀子疼痛厉害，举箸提笔，诸多不便，大约大去之期不远矣。”我读到此处，在晶莹的泪光中，又看见那肥胖的、青布棉袍黑布马褂的背影。唉！我不知何时再能与他相见！</p>]]></content>
-    
-    
-    <summary type="html">背影-朱自清</summary>
-    
-    
-    
-    <category term="art" scheme="http://example.com/categories/art/"/>
-    
-    
-    <category term="散文" scheme="http://example.com/tags/%E6%95%A3%E6%96%87/"/>
     
   </entry>
   

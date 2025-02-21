@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>从edge看程序的多进程设计</title>
+    <link href="/2025/02/21/Edge_multi_process/"/>
+    <url>/2025/02/21/Edge_multi_process/</url>
+    
+    <content type="html"><![CDATA[<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0.前言"></a>0.前言</h2><p>参考链接：<a href="https://blogs.windows.com/msedgedev/2020/09/30/microsoft-edge-multi-process-architecture/">Microsoft Edge’s multi-process architecture</a></p><p>进程是程序运作的基本单位，而线程隶属于进程，一个进程可以有包含主线程在内的多个线程，用来提升性能。</p><p>平时在编程中，很少会遇到需要额外创建进程的情况，自己编写的代码几乎都是一个进程就够了。但是在实际的开发中，多进程也是很常用的策略，但是我了解不多，因此借着Edge的设计来看看多进程设计。</p><h2 id="1-Edge的多进程设计"><a href="#1-Edge的多进程设计" class="headerlink" title="1.Edge的多进程设计"></a>1.Edge的多进程设计</h2><p>浏览器含有多个进程模块：</p><ul><li>1.Browser process：是主进程，组织打开的窗口、页面，控制浏览器本身的一些基本元素（上方的地址栏、前进后退按钮），并且对网络、文件等进程拥有特殊权限。</li><li>2.Renderer processes：执行代码渲染网页，处理HTML、CSS、JavaScript、images等，占用的资源受内容影响很大。</li><li>3.GPU process：与GPU关联，借助GPU加速上面提到的网页渲染。</li><li>4.Utility process：音频播放、网络服务、摄像头视频捕捉、解码、信息收集等，便于Edge掌握总体资源。</li><li>5.Plug-in processes and extension processes：包含Flash等插件以及其他扩展。</li><li>6.Crashpad handler process：用于将crash信息传递给微软。</li></ul><p>示意图片：</p><img src="/img/Edge_multi_process.png"><img src="/img/Edge_multi_process_2.png"><img src="/img/Edge_multi_process_3.png"><h2 id="2-多进程架构的优点"><a href="#2-多进程架构的优点" class="headerlink" title="2. 多进程架构的优点"></a>2. 多进程架构的优点</h2><h3 id="2-1-安全设计"><a href="#2-1-安全设计" class="headerlink" title="2.1 安全设计"></a>2.1 安全设计</h3><ul><li><p><strong>进程隔离</strong><br>每个进程独立运行，防止恶意网页或攻击利用漏洞跨进程传播。例如，如果恶意软件利用其中一个renderer进程的漏洞，会因权限受到严格限制而难以影响其他部分，从而保护用户的敏感信息。</p></li><li><p><strong>权限受限</strong><br>由于renderer进程权限较低，即使受到攻击，也仅限于网页渲染这一环节，攻击者难以获得更高权限或控制整个系统。</p></li><li><p><strong>资源访问控制</strong><br>用单独的工具进程管理音频、网络、视频捕捉和数据解码等资源，可以更好地保护这些操作，减少潜在的安全风险。</p></li></ul><h3 id="2-2-提高可靠性"><a href="#2-2-提高可靠性" class="headerlink" title="2.2 提高可靠性"></a>2.2 提高可靠性</h3><ul><li><p><strong>进程崩溃隔离</strong><br>当某个网页、扩展或插件崩溃时，仅该进程受到影响，其他进程仍能继续稳定运行，大大提升了浏览器的整体稳定性和用户体验。</p></li><li><p><strong>容错和恢复能力</strong><br>多进程架构使得浏览器能够更容易地检测和隔离出问题的部分，从而快速恢复正常状态，避免全局崩溃的情况发生。</p></li></ul><h3 id="2-3-资源可控性与效率"><a href="#2-3-资源可控性与效率" class="headerlink" title="2.3 资源可控性与效率"></a>2.3 资源可控性与效率</h3><ul><li><p><strong>资源监控</strong><br>每个进程独立运行，让用户可以在任务管理器中清晰地看到各个进程的资源占用情况（如CPU、内存、GPU等），从而判断是浏览器自身、网站内容还是扩展或插件在消耗资源。</p></li><li><p><strong>优化资源调度</strong><br>将任务分散到不同的进程中，系统可以更高效地进行资源分配，保证各模块在不同硬件环境下都能得到最佳性能。</p></li></ul><h3 id="2-4-性能优化"><a href="#2-4-性能优化" class="headerlink" title="2.4 性能优化"></a>2.4 性能优化</h3><ul><li><p><strong>并行处理</strong><br>多进程设计使得浏览器可以同时处理多个任务（如页面渲染、视频处理和数据解码），减少任务间的互相干扰，从而实现更流畅的用户体验。</p></li><li><p><strong>提高系统响应速度</strong><br>在重负载情况下，各个进程独立运行可以减缓整体系统的压力，提升浏览器和操作系统的响应速度。</p></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>blog</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Operater System</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>在纷繁多变的世界里茁壮成长：C++ 2006–2020</title>
     <link href="/2024/10/29/Cxx_HOPL4_zh_10/"/>
     <url>/2024/10/29/Cxx_HOPL4_zh_10/</url>
