@@ -1,0 +1,719 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="icyyoung">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="内存所有权、RAII、智能指针......">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++的内存管理">
+<meta property="og:url" content="http://example.com/2025/02/21/Cpp_learning_0/index.html">
+<meta property="og:site_name" content="Blog of Icyyoung">
+<meta property="og:description" content="内存所有权、RAII、智能指针......">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/blog_default_img.jpg">
+<meta property="article:published_time" content="2025-02-21T08:12:40.347Z">
+<meta property="article:modified_time" content="2025-02-21T10:18:45.160Z">
+<meta property="article:author" content="icyyoung">
+<meta property="article:tag" content="Operater System">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/blog_default_img.jpg">
+  
+  
+  
+  <title>C++的内存管理 - Blog of Icyyoung</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="Blog of Icyyoung" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Icyyoung</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/1999/suitcase.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C++的内存管理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-21 16:12" pubdate>
+          2025年2月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">C++的内存管理</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="进程内存"><a href="#进程内存" class="headerlink" title="进程内存"></a>进程内存</h2><p>堆、栈是C++中两种常见的内存段，均位于进程的虚拟内存空间中。</p>
+<p>栈是所有局部变量存放的地方，包括函数参数，函数调用时，栈会自动分配内存空间，函数返回时，栈会自动释放内存空间。</p>
+<p>每个线程都有自己的栈，所以栈内存可以认为是线程安全的。</p>
+<p>堆是全局性的内存区域，会被进程内的所有线程共享，在使用new&#x2F;delete&#x2F;malloc&#x2F;calloc等函数时进行堆操作。</p>
+<p>通常，堆是自低地址向高地址增长的，而栈是自高地址向低地址增长的，方向相反。</p>
+<p><strong>栈内存的特点</strong>：</p>
+<ul>
+<li>栈是连续的内存块。</li>
+<li>栈具有一个固定的最大容量，程序超过最大容量会导致崩溃，即栈溢出。</li>
+<li>栈内存永远不会出现内存碎片。</li>
+<li>栈内存的分配和释放速度非常快，有可能出现页缺失，但是非常少见。</li>
+</ul>
+<p><strong>堆内存的特点</strong>：</p>
+<ul>
+<li>多线程共享，因此使用时需要注意线程安全问题。</li>
+<li>栈的内存分配具有顺序性，而堆的内存分配和释放具有随机性，出现内存碎片风险很大。</li>
+</ul>
+<h2 id="内存中的对象"><a href="#内存中的对象" class="headerlink" title="内存中的对象"></a>内存中的对象</h2><p>C++程序中的所有对象都驻留在内存中,下面介绍内存的创建与销毁，以及对象的内存布局。</p>
+<h3 id="创建与销毁"><a href="#创建与销毁" class="headerlink" title="创建与销毁"></a>创建与销毁</h3><p>new&#x2F;delete用于在C++的堆上分配和释放内存，包含内存的分配过程以及构造函数的调用。</p>
+<p>C++也允许我们将内存分配与对象的构造过程分开，如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">auto</span>* memory = std::<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(User));<br><span class="hljs-keyword">auto</span>* user = ::<span class="hljs-built_in">new</span>(memory) <span class="hljs-built_in">User</span>(<span class="hljs-string">&quot;John&quot;</span>);<br>```cpp<br>这里使用的是placement <span class="hljs-keyword">new</span>，即在已经分配好的内存上构造对象，::<span class="hljs-keyword">new</span>表示使用全局的<span class="hljs-keyword">new</span>运算符，而不是类内部的<span class="hljs-keyword">new</span>运算符，避免重载。<br><br>此时，我们需要手动调用析构函数来销毁对象：<br>```cpp<br>user-&gt;~<span class="hljs-built_in">User</span>();<br>std::<span class="hljs-built_in">free</span>(memory);<br></code></pre></td></tr></table></figure>
+<p>C++17在<memory>中引入了一组函数，用于在创建&#x2F;销毁对象时不必分匹配或释放内存，可以使用其中以std::uninitialized_开头的函数进行构造、拷贝、移动对象到一个未被初始化的内存区域，不必调用placement new，如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">auto</span>* memory = std::<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(User));<br><span class="hljs-keyword">auto</span>* user_ptr = <span class="hljs-built_in">reinterpret_cast</span>&lt;User*&gt;(memory);<br>std::<span class="hljs-built_in">unininitialized_fill_n</span>(user_ptr, <span class="hljs-number">1</span>, <span class="hljs-built_in">User</span>(<span class="hljs-string">&quot;John&quot;</span>));<br>std::<span class="hljs-built_in">destory_at</span>(user_ptr);<br>std::<span class="hljs-built_in">free</span>(memory);<br></code></pre></td></tr></table></figure>
+<p>C++20引入了对等destroy_at的std::construct_at，可以取代unininitialized_fill_n。</p>
+<p>运算符new delete允许重载，可以定制内存处理机制。</p>
+<h3 id="内存对齐"><a href="#内存对齐" class="headerlink" title="内存对齐"></a>内存对齐</h3><p>CPU每次从内存中读入一个字，64架构是64位。C++中的每一种类型都有其对齐要求。</p>
+<p>可用alignof来查看对齐方式。</p>
+<p>new和malloc()确保总是返回适当对其的内存，我们也可以手动指定内存对齐形式，决定两个对象间的内存间隙的大小。</p>
+<p>还可以强制将两个变量分配到不同的缓存行中（假设其大小为64字节），如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">int</span> x&#123;&#125;;<br><span class="hljs-built_in">alignas</span>(<span class="hljs-number">64</span>) <span class="hljs-type">int</span> y&#123;&#125;;<br></code></pre></td></tr></table></figure>
+<h3 id="内存补齐"><a href="#内存补齐" class="headerlink" title="内存补齐"></a>内存补齐</h3><p>编译器有时需要为用户自定义的类型添加额外的字节进行补齐，对于Class和Struct中定义的数据成员，编译器会按照其声明的顺序补齐，如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Document</span>&#123;<br>    <span class="hljs-type">bool</span> is_cached&#123;&#125;;<br>    <span class="hljs-type">double</span> rank&#123;&#125;;<br>    <span class="hljs-type">int</span> id&#123;&#125;;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>编译器会将其补齐为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Document</span>  <span class="hljs-comment">/* size: 24, align: 8 */</span><br>&#123;<br>  <span class="hljs-type">bool</span> is_cached;                 <span class="hljs-comment">/* offset: 0, size: 1</span><br><span class="hljs-comment">  char __padding[7];                            size: 7 */</span><br>  <span class="hljs-type">double</span> rank;                    <span class="hljs-comment">/* offset: 8, size: 8 */</span><br>  <span class="hljs-type">int</span> id;                         <span class="hljs-comment">/* offset: 16, size: 4</span><br><span class="hljs-comment">  char __padding[4];                            size: 4 */</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<h3 id="内存所有权"><a href="#内存所有权" class="headerlink" title="内存所有权"></a>内存所有权</h3><ul>
+<li>局部变量是由当前作用域所有，离开作用域时自动销毁。</li>
+<li>静态变量由程序所有，程序结束时销毁。</li>
+<li>数据成员由所属的类的示例所有。</li>
+<li>只有动态变量才没有默认的所有者，需要注意控制其生命周期</li>
+</ul>
+<p>借助RAII，使用自定义的类对象包装动态内存，可以确保在对象销毁时自动释放内存。</p>
+<p>也可以借助于标准容器，容器本省拥有对象的所有权。还可以用std::optional来处理哪些可能存在也可能不存在的对象的生命周期。</p>
+<p><strong>智能指针</strong>：</p>
+<h4 id="std-unique-ptr"><a href="#std-unique-ptr" class="headerlink" title="std::unique_ptr"></a>std::unique_ptr</h4><p>独占所有权的智能指针，不能复制，使用完释放。</p>
+<p>非常高效，与普通指针相比，增加的开销是由于std::unique的析构函数是一个非平凡析构函数，这意味着（与原始指针不同），当他被传递给一个函数时，不能在CPU的寄存器中传递，因此比原始指针慢。</p>
+<h4 id="std-shared-ptr"><a href="#std-shared-ptr" class="headerlink" title="std::shared_ptr"></a>std::shared_ptr</h4><p>共享所有权的智能指针，可以复制，引用计数为0后释放。</p>
+<p>std::shared_ptr是内部线程安全的，所以计数器需要原子更新以防止竞态条件。</p>
+<p>推荐使用std::make_shared<T>()，因为他相比new后分配更加高效，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">auto</span> user = std::<span class="hljs-built_in">make_shared</span>&lt;<span class="hljs-type">double</span>&gt;(<span class="hljs-number">10.0</span>);   <span class="hljs-comment">//只需要一次内存分配</span><br><span class="hljs-keyword">auto</span> i = std::<span class="hljs-built_in">shared_ptr</span>&lt;<span class="hljs-type">double</span>&gt;(<span class="hljs-keyword">new</span> <span class="hljs-built_in">double</span>(<span class="hljs-number">10.0</span>)); <span class="hljs-comment">//需要两次</span><br></code></pre></td></tr></table></figure>
+<h4 id="std-weak-ptr"><a href="#std-weak-ptr" class="headerlink" title="std::weak_ptr"></a>std::weak_ptr</h4><p>弱引用，不需要只为我而保留它，可用于打破<strong>循环引用（两个共享指针互相指着对方，通过彼此的引用保持不被销毁）</strong>。</p>
+<p>为什么不直接使用原始指针？因为原始指针无法保证对象的生命周期，如果指针指向的对象被销毁，那么指针就变成了悬空指针。</p>
+<h3 id="小对象优化"><a href="#小对象优化" class="headerlink" title="小对象优化"></a>小对象优化</h3><p>在 C++ 编程中，容器如 <code>std::vector</code> 和 <code>std::string</code> 提供了灵活和高效的内存管理。然而，对于只包含少量元素的容器，动态内存分配可能会带来不必要的性能开销。小对象优化通过避免小对象的动态内存分配，提升性能。</p>
+<p>核心：对于小对象，我们不在堆上申请，而是将其存储到栈上。</p>
+<p>在<code>std::string</code>的实现中，许多字符串在普通程序中通常是短小的。因此，为了提高效率，标准库通常会为短字符串提供一个内部的小缓冲区。当字符串长度较短时，直接使用这个缓冲区；而当字符串超出缓冲区大小时，则切换到动态分配的堆内存。</p>
+<p>一种简单但浪费内存的方式是，在字符串类中始终保留一个固定的缓冲区。然而，这样即使不使用小缓冲区，也会增加字符串类的大小。</p>
+<p>更节省内存的解决方案是使用联合体 。联合体允许字符串在短模式下使用内部缓冲区，而在长模式下切换到动态分配的缓冲区。这种方式既节省了内存，又提高了性能。</p>
+<p>以下是一个简化的例子，展示了 LLVM 的 libc++ 中 std::string 在 64 位系统上的实现方式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-type">size_t</span> allocated = <span class="hljs-number">0</span>;<br><br><span class="hljs-function"><span class="hljs-type">void</span>* <span class="hljs-keyword">operator</span> <span class="hljs-title">new</span><span class="hljs-params">(<span class="hljs-type">size_t</span> size)</span> </span>&#123;<br>    <span class="hljs-type">void</span>* p = std::<span class="hljs-built_in">malloc</span>(size);<br>    allocated += size;<br>    <span class="hljs-keyword">return</span> p;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-keyword">operator</span> <span class="hljs-title">delete</span><span class="hljs-params">(<span class="hljs-type">void</span>* p)</span> <span class="hljs-keyword">noexcept</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">free</span>(p);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    allocated = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">auto</span> s = std::<span class="hljs-built_in">string</span>(<span class="hljs-string">&quot;&quot;</span>); <span class="hljs-comment">// 使用空字符串测试</span><br>    <span class="hljs-comment">// autp s = std::string(&quot;1234567890123456789012&quot;); // 使用长22字符的字符串测试</span><br>    <span class="hljs-comment">// autp s = std::string(&quot;12345678901234567890123&quot;); // 使用长23字符的字符串测试</span><br><br>    std::cout &lt;&lt; <span class="hljs-string">&quot;Stack space = &quot;</span> &lt;&lt; <span class="hljs-built_in">sizeof</span>(s)<br>              &lt;&lt; <span class="hljs-string">&quot;, Heap space = &quot;</span> &lt;&lt; allocated<br>              &lt;&lt; <span class="hljs-string">&quot;, Capacity = &quot;</span> &lt;&lt; s.<span class="hljs-built_in">capacity</span>() &lt;&lt; <span class="hljs-string">&#x27;\n&#x27;</span>;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>首先重载了全局的<code>new</code>和<code>delete</code>，以便跟踪内存分配。现在，测试空字符串，看看其性能，输出如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Stack</span> space = <span class="hljs-number">24</span>, Heap space = <span class="hljs-number">0</span>, Capacity = <span class="hljs-number">22</span><br></code></pre></td></tr></table></figure>
+<p>可以看到，std::string在栈上占用了24字节，没有使用堆内存，并且其容量为22。</p>
+<p>对于长为22的字符串，输出相同，表明没有动态分配空间。</p>
+<p>测试长为23字符的字符串：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Stack</span> space = <span class="hljs-number">24</span>, Heap space = <span class="hljs-number">32</span>, Capacity = <span class="hljs-number">31</span><br></code></pre></td></tr></table></figure>
+<p>此时，字符串超出了内部缓冲区的容量，切换到了动态分配的堆内存。它被分配了32个字节，容量为31，这是因为libc++总是在内部存储一个以零结尾的字符串，因此需要额外的1个字节表示来表示空字符串的结尾。</p>
+<p><code>std::string</code>的实现方式是使用两种不同布局的联合体，一种用于短字符串，另一种用于长字符串。</p>
+<p>长模式的布局大概如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Long</span> &#123;<br>    <span class="hljs-type">size_t</span> capacity_&#123;&#125;;     <span class="hljs-comment">// 动态分配的容量</span><br>    <span class="hljs-type">size_t</span> size_&#123;&#125;;         <span class="hljs-comment">// 字符串长度</span><br>    <span class="hljs-type">char</span>* data_&#123;&#125;;          <span class="hljs-comment">// 指向堆内存的指针</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>每个成员都是8字节的，所以总大小为24字节。char指针data_只想用于存储长字符串的动态分配的内存。</p>
+<p>短模式的布局大概如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Short</span> &#123;<br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> size_&#123;&#125;;  <span class="hljs-comment">// 字符串长度（最多 22）</span><br>    <span class="hljs-type">char</span> data_[<span class="hljs-number">23</span>]&#123;&#125;;       <span class="hljs-comment">// 内部缓冲区</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>长度只能在0到22之间，所以size_只需要1个字节。内部缓冲区有23个字节，总大小为24字节。</p>
+<p>两种布局使用联合体组合：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">union</span> <span class="hljs-title class_">StringStorage</span> &#123;<br>    Short short_;<br>    Long long_;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p><strong>还有一点！</strong>字符串如何知道是使用哪种布局？它存放在哪里？</p>
+<p>结果表明，在长模式下，libc++在capacity_字段中使用了最低有效位，在短模式下，在size_字段中使用了最低有效位。</p>
+<p>长模式下，这个位是多余的，因为字符串分配的内存大小总是2的倍数，而短模式下，可以只用7位存储大小，这样就有一位可以作为标志位！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/blog/" class="category-chain-item">blog</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Operater-System/" class="print-no-link">#Operater System</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C++的内存管理</div>
+      <div>http://example.com/2025/02/21/Cpp_learning_0/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>icyyoung</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/02/21/Edge_multi_process/" title="从edge看程序的多进程设计">
+                        <span class="hidden-mobile">从edge看程序的多进程设计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
