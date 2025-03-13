@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>std::sort的严格弱序问题 {#title}</title>
+    <link href="/2025/03/13/my_std_sort_error/"/>
+    <url>/2025/03/13/my_std_sort_error/</url>
+    
+    <content type="html"><![CDATA[<p>参考：</p><ul><li><a href="https://zhuanlan.zhihu.com/p/378294506">容器比较器的严格弱序约束</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>blog</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>algorithm</tag>
+      
+      <tag>C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>C++的内存管理</title>
     <link href="/2025/02/21/Cpp_learning_0/"/>
     <url>/2025/02/21/Cpp_learning_0/</url>

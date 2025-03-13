@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2025-02-21T10:20:13.673Z</updated>
+  <updated>2025-03-13T13:03:05.390Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>std::sort的严格弱序问题 {#title}</title>
+    <link href="http://example.com/2025/03/13/my_std_sort_error/"/>
+    <id>http://example.com/2025/03/13/my_std_sort_error/</id>
+    <published>2025-03-13T12:33:17.713Z</published>
+    <updated>2025-03-13T13:03:05.390Z</updated>
+    
+    <content type="html"><![CDATA[<p>参考：</p><ul><li><a href="https://zhuanlan.zhihu.com/p/378294506">容器比较器的严格弱序约束</a></li></ul>]]></content>
+    
+    
+    <summary type="html">从 LeetCode 179 题引发的未定义行为分析</summary>
+    
+    
+    
+    <category term="blog" scheme="http://example.com/categories/blog/"/>
+    
+    
+    <category term="algorithm" scheme="http://example.com/tags/algorithm/"/>
+    
+    <category term="C++" scheme="http://example.com/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>C++的内存管理</title>
@@ -412,27 +435,6 @@
     
     
     <category term="散文" scheme="http://example.com/tags/%E6%95%A3%E6%96%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Half is not Enough</title>
-    <link href="http://example.com/2024/05/26/half-is-not-enough/"/>
-    <id>http://example.com/2024/05/26/half-is-not-enough/</id>
-    <published>2024-05-26T11:27:42.000Z</published>
-    <updated>2024-05-26T11:54:36.684Z</updated>
-    
-    <content type="html"><![CDATA[<p>Do not love half lovers<br>Do not entertain half friends<br>Do not indulge in works of the half talented<br>Do not live half a life and do not die a half death</p><p>If you choose silence, then be silent</p><p>When you speak, do so until you are finished</p><p>Do not silence yourself to say something<br>And do not speak to be silent</p><p>If you accept, then express it bluntly<br>Do not mask it</p><p>If you refuse then be clear about it<br>for an ambiguous refusal<br>is but a weak acceptance</p><p>Do not accept half a solution<br>Do not believe half truths<br>Do not dream half a dream<br>Do not fantasize about half hopes</p><p>Half a drink will not quench your thirst<br>Half a meal will not satiate your hunger<br>Half the way will get you no where<br>Half an idea will bear you no results</p><p>Your other half is not the one you love<br>It is you in another time yet in the same space<br>It is you when you are not</p><p>Half a life is a life you didn’t live<br>A word you have not said<br>A smile you postponed<br>A love you have not had<br>A friendship you did not know</p><p>To reach and not arrive<br>Work and not work<br>Attend only to be absent<br>What makes you a stranger to them closest to you<br>and they strangers to you</p><p>The half is a mere moment of inability<br>but you are able for you are not half a being</p><p>You are a whole<br>that exists<br>to live a life</p><p>not half a life</p>]]></content>
-    
-    
-    <summary type="html">Half is not Enough by Kahlil Gibran</summary>
-    
-    
-    
-    <category term="art" scheme="http://example.com/categories/art/"/>
-    
-    
-    <category term="poem" scheme="http://example.com/tags/poem/"/>
     
   </entry>
   
