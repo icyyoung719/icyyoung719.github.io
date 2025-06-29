@@ -1,3 +1,4 @@
+http://example.com/2025/06/29/Virtual_in_cpp/
 http://example.com/2025/06/29/CRTP/
 http://example.com/2025/03/13/my_std_sort_error/
 http://example.com/2025/02/21/Cpp_learning_0/

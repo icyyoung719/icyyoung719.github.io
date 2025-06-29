@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/blog_default_img.jpg">
 <meta property="article:published_time" content="2025-06-29T03:07:36.261Z">
-<meta property="article:modified_time" content="2025-06-29T03:28:26.577Z">
+<meta property="article:modified_time" content="2025-06-29T03:43:26.132Z">
 <meta property="article:author" content="icyyoung">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
@@ -280,18 +280,15 @@
 <p>在读代码的时候，有时会看到下面的写法：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Derived</span> : <span class="hljs-keyword">public</span> Base&lt;Derived&gt;<br></code></pre></td></tr></table></figure>
 <p>之前我都是直接跳过的，但是最近写图数据结构的时候再次接触了，就把这部分详细看了看。</p>
-<h1 id="基本了解"><a href="#基本了解" class="headerlink" title="基本了解"></a>基本了解</h1><hr>
-<h2 id="1-CRTP-的基本形式"><a href="#1-CRTP-的基本形式" class="headerlink" title="1. CRTP 的基本形式"></a>1. CRTP 的基本形式</h2><p>CRTP 的核心思想是：一个类将自身作为模板参数传递给其基类，这种设计模式可用于在编译期实现多态调用。</p>
+<h1 id="基本了解"><a href="#基本了解" class="headerlink" title="基本了解"></a>基本了解</h1><h2 id="1-CRTP-的基本形式"><a href="#1-CRTP-的基本形式" class="headerlink" title="1. CRTP 的基本形式"></a>1. CRTP 的基本形式</h2><p>CRTP 的核心思想是：一个类将自身作为模板参数传递给其基类，这种设计模式可用于在编译期实现多态调用。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> Derived&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">interface</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-built_in">static_cast</span>&lt;Derived*&gt;(<span class="hljs-keyword">this</span>)-&gt;<span class="hljs-built_in">implementation</span>();<br>    &#125;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Derived</span> : <span class="hljs-keyword">public</span> Base&lt;Derived&gt; &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">implementation</span><span class="hljs-params">()</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;Derived implementation\n&quot;</span>;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 <p>调用 <code>interface()</code> 时，实际会在编译期解析并绑定到 <code>Derived::implementation()</code>，实现零运行时开销的多态。</p>
-<hr>
 <h2 id="2-为什么使用-CRTP"><a href="#2-为什么使用-CRTP" class="headerlink" title="2. 为什么使用 CRTP"></a>2. 为什么使用 CRTP</h2><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
 <li><strong>零运行时开销</strong>：无虚表，无 RTTI，调用开销为常规函数级别；</li>
 <li><strong>更容易内联</strong>：调用目标在编译期已知，编译器更容易进行内联优化；</li>
 <li><strong>良好的可组合性</strong>：可以构造策略模板、表达式模板等结构，组合多个行为而不依赖多重继承。</li>
 </ul>
-<hr>
 <h2 id="3-CRTP-vs-虚函数：性能对比"><a href="#3-CRTP-vs-虚函数：性能对比" class="headerlink" title="3. CRTP vs 虚函数：性能对比"></a>3. CRTP vs 虚函数：性能对比</h2><p>我们使用 Google Benchmark 测试三种函数调用方式：</p>
 <ul>
 <li><code>BM_none</code>：普通函数调用；</li>
@@ -305,7 +302,6 @@
 <li>虚函数调用开销远高于 CRTP（约 65~70 倍）；</li>
 <li>CRTP 与普通函数调用几乎持平，是性能敏感场景下的优选。</li>
 </ul>
-<hr>
 <h1 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h1><h2 id="4-CRTP-的适用边界"><a href="#4-CRTP-的适用边界" class="headerlink" title="4. CRTP 的适用边界"></a>4. CRTP 的适用边界</h2><h3 id="不能替代虚函数的情况："><a href="#不能替代虚函数的情况：" class="headerlink" title="不能替代虚函数的情况："></a>不能替代虚函数的情况：</h3><ul>
 <li>无法支持运行时多态；</li>
 <li>无法使用 <code>std::vector&lt;Base*&gt;</code> 存储派生类对象；</li>
@@ -321,7 +317,6 @@
 <li>不需要类型擦除或容器存储；</li>
 <li>性能关键路径（如表达式模板、驱动、渲染器等）。</li>
 </ul>
-<hr>
 <h2 id="5-为什么-CRTP-没有广泛替代虚函数？"><a href="#5-为什么-CRTP-没有广泛替代虚函数？" class="headerlink" title="5. 为什么 CRTP 没有广泛替代虚函数？"></a>5. 为什么 CRTP 没有广泛替代虚函数？</h2><ul>
 <li><strong>不能实现运行时类型擦除</strong>：CRTP 类型不是多态接口，不能统一处理多个子类；</li>
 <li><strong>写法复杂抽象</strong>：<code>Base&lt;Derived&gt;</code> 的递归结构初学者难以理解；</li>
@@ -329,7 +324,6 @@
 <li><strong>调试器和 IDE 对模板支持不如虚函数好</strong>；</li>
 <li><strong>无法 override 检查，接口易失误</strong>。</li>
 </ul>
-<hr>
 <h2 id="6-CRTP-与-Concepts-结合"><a href="#6-CRTP-与-Concepts-结合" class="headerlink" title="6. CRTP 与 Concepts 结合"></a>6. CRTP 与 Concepts 结合</h2><p>C++20 引入的 Concepts 可为 CRTP 提供编译期约束：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">concept</span> Shape = <span class="hljs-built_in">requires</span>(<span class="hljs-type">const</span> T&amp; t) &#123;<br>    &#123; t.<span class="hljs-built_in">area</span>() &#125; -&gt; std::convertible_to&lt;<span class="hljs-type">double</span>&gt;;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">template</span>&lt;Shape T&gt;</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">draw</span><span class="hljs-params">(<span class="hljs-type">const</span> T&amp; shape)</span> </span>&#123;<br>    std::cout &lt;&lt; shape.<span class="hljs-built_in">area</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -338,7 +332,6 @@
 <li>报错信息更友好；</li>
 <li>接口行为清晰、可组合。</li>
 </ul>
-<hr>
 <h1 id="相似替代"><a href="#相似替代" class="headerlink" title="相似替代"></a>相似替代</h1><h2 id="7-模拟虚函数：LLVM-的-classof-技巧"><a href="#7-模拟虚函数：LLVM-的-classof-技巧" class="headerlink" title="7. 模拟虚函数：LLVM 的 classof 技巧"></a>7. 模拟虚函数：LLVM 的 classof 技巧</h2><p>LLVM 不用 <code>dynamic_cast</code>，也极少用 <code>virtual</code>。它大量使用 CRTP + 自定义 RTTI（运行时类型识别）来做类型擦除和动态分派。</p>
 <p>LLVM 避免使用虚函数，改用自定义类型标记与静态分发：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Base</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Kind</span> &#123; RECTANGLE, CIRCLE &#125;;<br>    <span class="hljs-built_in">Base</span>(Kind k) : <span class="hljs-built_in">kind</span>(k) &#123;&#125;<br>    <span class="hljs-function">Kind <span class="hljs-title">getKind</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123; <span class="hljs-keyword">return</span> kind; &#125;<br><span class="hljs-keyword">protected</span>:<br>    Kind kind;<br>&#125;;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Rectangle</span> : <span class="hljs-keyword">public</span> Base &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">Rectangle</span>() : <span class="hljs-built_in">Base</span>(RECTANGLE) &#123;&#125;<br>    <span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">bool</span> <span class="hljs-title">classof</span><span class="hljs-params">(<span class="hljs-type">const</span> Base* b)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> b-&gt;<span class="hljs-built_in">getKind</span>() == RECTANGLE;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
@@ -350,7 +343,6 @@
 <li>类型检查精细可控</li>
 <li>用在 LLVM 全代码中（如 Instruction, Value, Type）</li>
 </ul>
-<hr>
 <h2 id="8-手动-vtable：Boost-Dyno-风格类型擦除"><a href="#8-手动-vtable：Boost-Dyno-风格类型擦除" class="headerlink" title="8. 手动 vtable：Boost.Dyno 风格类型擦除"></a>8. 手动 vtable：Boost.Dyno 风格类型擦除</h2><p>想要 完全去除 virtual + 不用模板展开太多代码，还需要支持 runtime polymorphism。怎么办？</p>
 <p>→ 模拟一个自己的 vtable</p>
 <p><strong>手动 vtable 核心思路</strong>：</p>
@@ -368,7 +360,6 @@
 <li>比 virtual <strong>更灵活</strong>：可以控制是否复制、是否移动</li>
 </ul>
 <p>这种方式用于标准库（如 <code>std::function</code>）、Boost.Dyno 或高性能框架中，提供更细粒度的控制。</p>
-<hr>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><table>
 <thead>
 <tr>
@@ -553,6 +544,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/06/29/Virtual_in_cpp/" title="Virtual——潜在的性能杀手">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Virtual——潜在的性能杀手</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
