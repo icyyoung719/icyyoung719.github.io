@@ -18,14 +18,14 @@
   
     <meta name="description" content="从 LeetCode 179 题引发的未定义行为分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="std::sort的严格弱序问题 {#title}">
+<meta property="og:title" content="std::sort的严格弱序问题">
 <meta property="og:url" content="http://example.com/2025/03/13/my_std_sort_error/index.html">
 <meta property="og:site_name" content="Blog of Icyyoung">
 <meta property="og:description" content="从 LeetCode 179 题引发的未定义行为分析">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/img/blog_default_img.jpg">
 <meta property="article:published_time" content="2025-03-13T12:33:17.713Z">
-<meta property="article:modified_time" content="2025-03-13T13:03:05.390Z">
+<meta property="article:modified_time" content="2025-03-13T13:05:40.121Z">
 <meta property="article:author" content="icyyoung">
 <meta property="article:tag" content="algorithm">
 <meta property="article:tag" content="C++">
@@ -34,7 +34,7 @@
   
   
   
-  <title>std::sort的严格弱序问题 {#title} - Blog of Icyyoung</title>
+  <title>std::sort的严格弱序问题 - Blog of Icyyoung</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="std::sort的严格弱序问题 {#title}"></span>
+            <span id="subtitle" data-typed-text="std::sort的严格弱序问题"></span>
           
         </div>
 
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          14 字
+          686 字
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -272,7 +272,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">std::sort的严格弱序问题 {#title}</h1>
+            <h1 id="seo-header">std::sort的严格弱序问题</h1>
             
             
               <div class="markdown-body">
@@ -280,7 +280,28 @@
                 <p>参考：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/378294506">容器比较器的严格弱序约束</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/largest-number/description/">179. 最大数</a></li>
 </ul>
+<p><strong>LeetCode 179题</strong>：要求将数组中的数字拼接成最大的数。我的做法有点蠢，排序时的思路大概是下面这样的：</p>
+<figure class="highlight cpp"><figcaption><span>&#123;#code-block&#125;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">auto</span> mycmp = [](string first, string&amp; second)&#123;<br>    <span class="hljs-keyword">if</span>(first.<span class="hljs-built_in">length</span>() == second.<span class="hljs-built_in">length</span>())&#123;<br>        <span class="hljs-keyword">return</span>  first.<span class="hljs-built_in">compare</span>(second) &gt;= <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-comment">// 大的为true</span><br>    <span class="hljs-keyword">auto</span> i1 = <span class="hljs-number">0</span>, i2 = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>)&#123;<br>        <span class="hljs-keyword">if</span>(first[i1] &gt; second[i2])&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(first[i1] &lt; second[i2])&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span>&#123;<br>            i1 = (i1+<span class="hljs-number">1</span>) % first.<span class="hljs-built_in">length</span>();<br>            i2 = (i2+<span class="hljs-number">1</span>) % second.<span class="hljs-built_in">length</span>();<br>            <span class="hljs-keyword">if</span>(i1 == <span class="hljs-number">0</span> &amp;&amp; i2 == <span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;;<br><span class="hljs-built_in">sort</span>(strs.<span class="hljs-built_in">begin</span>(),strs.<span class="hljs-built_in">end</span>(),mycmp);<br></code></pre></td></tr></table></figure>
+<p>测试时，出现了奇怪的现象：当输入为<code>[0,0,0,0]</code>时，函数正常运行；而当输入为<code>[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]</code>的超多0时，程序会在<code>if(first[i1] &gt; second[i2])</code>崩溃。我自然是一脸懵，全0输入，肯定会在比较时由于长度相等而不进入while循环。</p>
+<p>调试时发现first莫名其妙为空了，于是我在while前加上了非空判断，结果还是崩溃。好吧，求助了qwen，他和我说要把参数的两个string改为const引用，所以我就把函数头部修改成了const形式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">auto</span> mycmp = [](<span class="hljs-type">const</span> string&amp; first, <span class="hljs-type">const</span> string&amp; second)<br></code></pre></td></tr></table></figure>
+<p>结果还是无效。已经超出我的理解了，所以就上网看了看，发现std::sort对其排序规则有额外要求，即严格弱序：</p>
+<ul>
+<li>1.非自反性：comp(a, a) 必须为 false。</li>
+<li>2.非对称性：若 comp(a, b) 为 true，则 comp(b, a) 必须为 false。</li>
+<li>3.传递性：若 comp(a, b) 和 comp(b, c) 为 true，则 comp(a, c) 必须为 true。<br>如果比较函数不满足这些条件，排序算法的内部逻辑会崩溃，导致未定义行为。</li>
+</ul>
+<p>未定义行为的后果：</p>
+<p>当比较函数违反严格弱序时，std::sort 的内部逻辑（如快速排序的分区）会陷入混乱：</p>
+<ul>
+<li>迭代器越界：在比较中误判元素的顺序，导致访问非法内存。</li>
+<li>空字符串问题：错误的元素交换可能导致字符串被意外清空。</li>
+<li>死循环：无法正确终止分区过程。</li>
+<li>当输入全为 0 时，所有字符串都是 “0”，每次比较都会触发 first.compare(second) &gt;&#x3D; 0，导致未定义行为。</li>
+</ul>
+<p>将&gt;&#x3D;修改为&gt;，即可恢复排序规则的严格弱序，程序正常运行。</p>
 
                 
               </div>
@@ -328,7 +349,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>std::sort的严格弱序问题 {#title}</div>
+      <div>std::sort的严格弱序问题</div>
       <div>http://example.com/2025/03/13/my_std_sort_error/</div>
     </div>
     <div class="license-meta">
@@ -372,6 +393,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/06/29/CRTP/" title="CRTP-模板编程初次尝试">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CRTP-模板编程初次尝试</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
